@@ -11,7 +11,6 @@ fetch('https://sports.is120.ckearl.com')
         console.log(data.data);
         allData = data.data;
         for (let leagueName in allData) {
-            console.log(leagueName);
             leagueList = document.createElement('p');
             leagueList.innerHTML = leagueName
             body = document.querySelector('body');
@@ -23,7 +22,6 @@ fetch('https://sports.is120.ckearl.com')
     
         // randomizes the league
         randomLeagueInt = randomInt(0,3);
-        console.log(randomLeagueInt)
         // clunky but this converts a random int into the league
         if (randomLeagueInt === 3) {
             randomLeague = 'nhl';
@@ -34,9 +32,38 @@ fetch('https://sports.is120.ckearl.com')
         } else {
             randomLeague = 'nfl';
         }
-        console.log(randomLeague);
 
-        console.log(allData[randomLeague]);
+        //redefines random league
+        randomLeague = allData[randomLeague]
+
+
+        // this is what the path looks like for a team name
+        console.log(randomLeague.teams[0].name);
+        // this is the path for a player on
+        // will cause an error if the random league is nba because there are no players in that league
+        // console.log(allData[randomLeague].teams[1].roster[0].fullName);
+        console.log(allData.nba.teams[0]);
+
+
+        // grabs a random team
+        leagueLength = randomLeague.teams.length
+        randomTeam = (randomInt(1, leagueLength) - 1)
+        console.log(randomTeam)
+
+        //redefines randomTeam
+        randomTeam = randomLeague.teams[randomTeam];
+
+        //grabs random player, ignores nba
+        // we will have to change the logic if he doesn't add nba players to rosters
+        if (randomTeam.roster[0] !== null ) {
+            randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
+            randomPlayer = randomTeam.roster[randomPlayer];
+            console.log(randomPlayer);
+            playerStats = document.createElement('p');
+            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;
+            body.appendChild(playerStats);        
+        }
+        
 
     })
     .catch(error => {
