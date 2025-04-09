@@ -50,17 +50,15 @@ fetch('https://sports.is120.ckearl.com')
 
 
         // this is what the path looks like for a team name
-        console.log(randomLeague.teams[0].name);
+        // console.log(randomLeague.teams[0].name);
         // this is the path for a player on
         // will cause an error if the random league is nba because there are no players in that league
         // console.log(allData[randomLeague].teams[1].roster[0].fullName);
-        console.log(allData.nba.teams[0]);
 
 
         // grabs a random team
         leagueLength = randomLeague.teams.length
         randomTeam = (randomInt(1, leagueLength) - 1)
-        console.log(randomTeam)
 
         //redefines randomTeam
         randomTeam = randomLeague.teams[randomTeam];
