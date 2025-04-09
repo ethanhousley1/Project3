@@ -1,0 +1,10 @@
+:root {
+    --bg-color: #FFFFFF;
+    --heading-color: #153243;
+    --accent-color: #F4F9E9;
+    --font-color: black;
+}
+
+body {
+    display: grid;
+}
