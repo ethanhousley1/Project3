@@ -4,7 +4,9 @@ let allData; // api data stored globally, not really used yet
 // it must import the API
 
 function randomInt (min, max) {return Math.floor(Math.random() * (max-min + 1)) + min; }; // creating a random int function for randomizer
-
+playerStats = document.createElement('p');
+body = document.querySelector('body');
+body.appendChild(playerStats);
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
@@ -13,13 +15,23 @@ fetch('https://sports.is120.ckearl.com')
         for (let leagueName in allData) {
             leagueList = document.createElement('p');
             leagueList.innerHTML = leagueName
-            body = document.querySelector('body');
+            
             body.appendChild(leagueList)
         }
 
 
         //beginning of randomizer
+        
+    })
+    .catch(error => {
+        console.error('Error:', error)
+    });
     
+
+    function getRandomPlayer () {
+        
+        
+
         // randomizes the league
         randomLeagueInt = randomInt(0,3);
         // clunky but this converts a random int into the league
@@ -59,18 +71,10 @@ fetch('https://sports.is120.ckearl.com')
             randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
             randomPlayer = randomTeam.roster[randomPlayer];
             console.log(randomPlayer);
-            playerStats = document.createElement('p');
-            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;
-            body.appendChild(playerStats);        
+            
+            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;       
         }
-        
-
-    })
-    .catch(error => {
-        console.error('Error:', error)
-    });
-
-
+    }
 
 
 
