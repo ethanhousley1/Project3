@@ -14,12 +14,27 @@ let playerImage = document.getElementById('player-image');
 
 body = document.querySelector('body');
 body.appendChild(playerStats);
+
+
+
+
+
+
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
         allData = data.data;
         // example searchParam for now
         let searchParam = 'Kyler Murray';
+
+        // search bar
+        const input = document.getElementById('search-bar');
+            input.addEventListener('input', function() {
+            console.log('Input changed:', input.value);
+            getSpecificPlayer(allData, input.value);
+        });
+
+
         getSpecificPlayer(allData, searchParam);
 
         
@@ -100,7 +115,8 @@ function getSpecificPlayer(allData, searchParam) {
                 for (let player in allData[league].teams[team].roster) {
                     let specificPlayer = allData[league].teams[team].roster[player];
                     if (specificPlayer.fullName.includes(searchParam)) {
-                        displayPlayer(specificPlayer);
+                        console.log(specificPlayer.fullName);
+                        // displayPlayer(specificPlayer);
                     }
                     
 
