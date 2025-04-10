@@ -17,9 +17,10 @@ body.appendChild(playerStats);
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
-        console.log(data.data);
         allData = data.data;
-
+        // example searchParam for now
+        let searchParam = 'Kyler Murray';
+        getSpecificPlayer(allData, searchParam);
 
         
         
@@ -81,7 +82,33 @@ fetch('https://sports.is120.ckearl.com')
         }
     }
 
-    
+
+// this function will be core, it will find a specific player given the data and a parameter, like the first few letters in a search bar
+// it will have to update every time there is an input in the search bar
+// it will have to loop thru every league and pull out every player that matches the searchParam
+//im thinking about using regex for this
+
+
+
+function getSpecificPlayer(allData, searchParam) {
+    selectedLeagues = ['mlb','nfl','nhl'] // i use this to ditch the nba
+    console.log(allData);
+    // console.log(allData[league].teams[team].roster[player].fullName
+    for (let league in allData) {
+        if (selectedLeagues.includes(league)) {
+            for (let team in allData[league].teams) {
+                for (let player in allData[league].teams[team].roster) {
+                    let specificPlayer = allData[league].teams[team].roster[player];
+                    if (specificPlayer.fullName.includes(searchParam)) {
+                        displayPlayer(specificPlayer);
+                    }
+                    
+
+                }
+            }
+        }
+    }
+};
 
 
 
