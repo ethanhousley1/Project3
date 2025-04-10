@@ -5,6 +5,13 @@ let allData; // api data stored globally, not really used yet
 
 function randomInt (min, max) {return Math.floor(Math.random() * (max-min + 1)) + min; }; // creating a random int function for randomizer
 playerStats = document.createElement('p');
+
+// setting up variables so we can use them on the example card on the hero page
+let playerName = document.getElementById('player-name');
+let playerTeam = document.getElementById('player-team');
+let playerposition = document.getElementById('player-position');
+let playerImage = document.getElementById('player-image');
+
 body = document.querySelector('body');
 body.appendChild(playerStats);
 fetch('https://sports.is120.ckearl.com')
@@ -70,9 +77,17 @@ fetch('https://sports.is120.ckearl.com')
             randomPlayer = randomTeam.roster[randomPlayer];
             console.log(randomPlayer);
             
-            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;       
+            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
+
+            // this fills in the information on the random card on the hero page
+            playerName.innerHTML = randomPlayer.fullName;
+            playerTeam.innerHTML = randomTeam.name;
+            playerposition.innerHTML = randomPlayer.position;  
+            playerImage.src = randomPlayer.headshot;   
         }
     }
+
+    
 
 
 

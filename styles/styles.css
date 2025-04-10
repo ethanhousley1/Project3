@@ -3,8 +3,161 @@
     --heading-color: #153243;
     --accent-color: #F4F9E9;
     --font-color: black;
+    --font-family: "DM Serif Text", serif;
+    --card-font-family: "Anton", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
+    display: grid;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--heading-color);
+    height: 100px;
+    justify-content: space-between;
+    font-family: var(--font-family);
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    padding-right: 50px;
+    width: 500px;
+    justify-content: space-between;
+
+    a {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+main {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    height: 50vh;
+}
+
+#grid-header-1 {
+    display: flex;
+    justify-content: space-around;
+}
+
+#example-card {
+    display: flex;
+}
+  
+.front {
+    background-color: var(--accent-color);
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: var(--card-font-family);
+}
+
+/* .front, .back {
+    height: 100%;
+    width: 100%;
+}
+
+.back {
+    background-image: url('https://cdn.discordapp.com/attachments/1131950982032050226/1159426586486467634/Back.png');
+} */
+
+#player-name-container {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#player-name {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+#player-team {
+    margin: 0;
+    font-size: 0.9rem;
+}
+  
+#player-image-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#player-image {
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    margin: 0 0.5rem;
+}
+
+#player-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: .5rem;
+    font-weight: bold;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 1rem;
+}
+  
+#player-position {
+    flex: 1;
+    text-align: center;
+}
+  
+
+#grid-header-2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+#grid {
     display: grid;
 }

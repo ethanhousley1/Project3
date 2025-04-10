@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 3</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
 </head>
 <body>
-    <script src="./js/main.js"></script>
-    <script src="./js/card.js"></script>
-    <button onclick="getRandomPlayer()" id="random-player-btn">Get random player</button>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <h1>Sports Cards Plus</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="./sites/cardgrid.html">Card Collection</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <section class="grid-container">
+      <div id="grid-header-1">
+        <h1>Welcome to</h1>
+      </div>
+      <div id="example-card">
+        <div class="front">
+          <div id="player-name-container">
+            <div id="player-name">Kyler Murray</div>
+            <div id="player-team">Arizona Cardinals</div>
+          </div>
+          <div id="player-image-container"><img id="player-image" src="./images/kyler-murray-headshot.jpeg" alt="Headshot of player"></div>
+          <div id="player-info">
+            <div id="player-position">QB</div>
+          </div>
+        </div>
+        <!-- <div class="back">
+          <div id="player-stats">
+            <div id="player-stat-title">Career Stats</div>
+            <div id="player-stat-1">Yards: 3,500</div>
+            <div id="player-stat-2">Touchdowns: 25</div>
+            <div id="player-stat-3">Interceptions: 10</div>
+          </div>
+          <div id="player-bio">
+            <div id="player-bio-title">Bio</div>
+            <p>Kyler Murray is a quarterback for the Arizona Cardinals. He was drafted first overall in the 2019 NFL Draft.</p>
+          </div>
+        </div> -->
+      </div>
+      <div id="grid-header-2">
+        <h1>Sports Cards Plus</h1>
+      </div>
+      <!-- <div id="grid"></div> -->
+    </section>
+  </main>
+  <button onclick="getRandomPlayer()" id="random-player-btn">Get random player</button>
+  <script src="./js/main.js"></script>
+  <script src="./js/card.js"></script>
     
 </body>
 </html>
