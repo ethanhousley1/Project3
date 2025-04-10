@@ -6,11 +6,26 @@
     <title>Document</title>
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
-<body>
+<header>
+    <div class="header-content">
+      <div class="logo">
+        <h1>Sports Cards Plus</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="#">Card Collection</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+</header>
+<body class="cardgrid-body">
     <!--The grid will have a header with the search bar and nav bar with nfl, nba, mlb, and nhl-->
-    <section class="grid-container">
-        <div id="grid-header"></div>
-        <div id="grid"></div>
+    <section class="cardgrid-container">
+        <div id="cardgrid-header">
+            <input type="text" id="search-bar" placeholder="Search for a team or player...">
+            <div>League Selector</div>
+        </div>
+        <div id="cardgrid"></div>
 
     </section>
     

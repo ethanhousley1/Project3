@@ -19,22 +19,16 @@ fetch('https://sports.is120.ckearl.com')
     .then(data => {
         console.log(data.data);
         allData = data.data;
-        for (let leagueName in allData) {
-            leagueList = document.createElement('p');
-            leagueList.innerHTML = leagueName
-            
-            body.appendChild(leagueList)
-        }
 
 
-        //beginning of randomizer
+        
         
     })
     .catch(error => {
         console.error('Error:', error)
     });
     
-
+    //beginning of randomizer   
     function getRandomPlayer () {
         
         
@@ -77,7 +71,7 @@ fetch('https://sports.is120.ckearl.com')
             randomPlayer = randomTeam.roster[randomPlayer];
             console.log(randomPlayer);
             
-            playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
+            // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
             // this fills in the information on the random card on the hero page
             playerName.innerHTML = randomPlayer.fullName;
