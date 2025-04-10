@@ -1,15 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 3</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
 </head>
 <body>
-    <script src="./js/main.js"></script>
-    <script src="./js/card.js"></script>
-    <button onclick="getRandomPlayer()" id="random-player-btn">Get random player</button>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <h1>Sports Cards Plus</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="./sites/cardgrid.html">Card Collection</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <section class="grid-container">
+      <div id="grid-header-1">
+        <h1>Welcome to</h1>
+      </div>
+      <div id="example-card">
+        <div id="player-name">
+          <div><h2>Kyler Murray</h2></div>
+          <div><p>Arizona Cardinals</p></div>
+        </div>
+        <div id="player-image"><img src="./images/kyler-murray-headshot.jpeg" alt="Headshot of player"></div>
+        <div id="player-info">
+          <!-- <div><p>|</p></div> -->
+          <div><p>QB</p></div>
+        </div>
+      </div>
+      <div id="grid-header-2">
+        <h1>Sports Cards Plus</h1>
+      </div>
+      <!-- <div id="grid"></div> -->
+    </section>
+  </main>
+  <script src="./js/main.js"></script>
+  <script src="./js/card.js"></script>
+  <button onclick="getRandomPlayer()" id="random-player-btn">Get random player</button>
     
 </body>
 </html>
