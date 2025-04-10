@@ -8,3 +8,14 @@
 body {
     display: grid;
 }
+
+.grid-container {
+    display: flex;
+}
+#grid-header {
+    display: flex;
+    justify-content: space-around;
+}
+#grid {
+    display: grid;
+}
