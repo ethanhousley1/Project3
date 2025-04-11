@@ -24,18 +24,34 @@ fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
         allData = data.data;
-        // example searchParam for now
-        let searchParam = 'Kyler Murray';
 
-        // search bar
-        const input = document.getElementById('search-bar');
-            input.addEventListener('input', function() {
-            console.log('Input changed:', input.value);
-            getSpecificPlayer(allData, input.value);
-        });
+        // Calling the randomplayer function to get a random card populated on the hero page
+        getRandomPlayer();
 
+        // Calling this code only if we are on the cardgrid.html page
+        if (window.location.pathname.includes("cardgrid.html")) {
+            // search bar
+            const searchButton = document.createElement('random-button')
+            searchButton.id = 'search-button';
+            searchButton.innerHTML = 'Search for your favorite player';
+            document.getElementById('cardgrid-header').appendChild(searchButton);
+            
+            // Function that works when the search button is clicked
+            searchButton.addEventListener('click', function() {
+                // Clearing previous players searched by the user to allow for a new card to be searched
+                const container = document.querySelector('#card-grid');
+                container.innerHTML = '';
 
-        getSpecificPlayer(allData, searchParam);
+                // Checking for the input from the search bar
+                const input = document.getElementById('search-bar').value;
+                const searchParam = input;
+                // Telling me what the input is
+                console.log(searchParam);
+
+                // Calling the function to create the card for that player
+                getSpecificPlayer(allData, searchParam);
+            });
+        }
     })
     .catch(error => {
         console.error('Error:', error)
@@ -43,9 +59,6 @@ fetch('https://sports.is120.ckearl.com')
     
     //beginning of randomizer   
     function getRandomPlayer () {
-        
-        
-
         // randomizes the league
         randomLeagueInt = randomInt(0,3);
         // clunky but this converts a random int into the league
@@ -82,7 +95,7 @@ fetch('https://sports.is120.ckearl.com')
         if (randomTeam.roster[0] !== null ) {
             randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
             randomPlayer = randomTeam.roster[randomPlayer];
-            console.log(randomPlayer);
+            // console.log(randomPlayer);
             
             // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
@@ -100,6 +113,7 @@ fetch('https://sports.is120.ckearl.com')
                 randomPlayer.weight,
                 randomPlayer.age,
                 randomPlayer.experience,
+                randomTeam.logo,
                 "#example-card"
             );
               
@@ -116,7 +130,7 @@ fetch('https://sports.is120.ckearl.com')
 
 function getSpecificPlayer(allData, searchParam) {
     selectedLeagues = ['mlb','nfl','nhl'] // i use this to ditch the nba
-    console.log(allData);
+    // console.log(allData);
     // console.log(allData[league].teams[team].roster[player].fullName
     for (let league in allData) {
         if (selectedLeagues.includes(league)) {
@@ -124,22 +138,21 @@ function getSpecificPlayer(allData, searchParam) {
                 for (let player in allData[league].teams[team].roster) {
                     let specificPlayer = allData[league].teams[team].roster[player];
                     if (specificPlayer.fullName.includes(searchParam)) {
-                        console.log(specificPlayer.fullName);
+                        // console.log(specificPlayer.fullName);
                         // displayPlayer(specificPlayer);
                         createPlayerCard(
                             specificPlayer.fullName,
-                            specificPlayer.team,
+                            allData[league].teams[team].name,
                             specificPlayer.position,
                             specificPlayer.headshot,
                             specificPlayer.height,
                             specificPlayer.weight,
                             specificPlayer.age,
                             specificPlayer.experience,
+                            allData[league].teams[team].logo,
                             "#card-grid"
                         );
                     }
-                    
-
                 }
             }
         }
@@ -148,7 +161,7 @@ function getSpecificPlayer(allData, searchParam) {
 
 
 // Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
-function createPlayerCard(name, team, position, imageSrc, height, weight, age, experience, containerId) {
+function createPlayerCard(name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId) {
     const parentContainer = document.querySelector(containerId);
   
     const cardWrapper = document.createElement("div");
@@ -163,6 +176,7 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
   
     const nameContainer = document.createElement("div");
     nameContainer.id = "player-name-container";
+    nameContainer.style.backgroundColor = '#ffffff';
   
     const playerName = document.createElement("div");
     playerName.id = "player-name";
@@ -186,6 +200,7 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
   
     const positionDiv = document.createElement("div");
     positionDiv.id = "player-position";
+    positionDiv.style.backgroundColor = '#ffffff';
     positionDiv.textContent = position;
   
     front.appendChild(nameContainer);
@@ -196,8 +211,16 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
     const back = document.createElement("div");
     back.className = "card-face back";
   
+    back.style.backgroundImage = `url(${logoSrc})`;
+    back.style.backgroundSize = "contain";
+    back.style.backgroundRepeat = "no-repeat";
+    back.style.backgroundPosition = "center";
+
     const statHeader = document.createElement("h3");
     statHeader.textContent = "Player Stats";
+    statHeader.style.backgroundColor = '#ffffff';
+    statHeader.style.borderRadius = '5px';
+    statHeader.style.padding = '2px';
     back.appendChild(statHeader);
   
     const statsObj = {
@@ -211,9 +234,10 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
       const p = document.createElement("p");
       p.textContent = `${key}: ${statsObj[key]}`;
       back.appendChild(p);
+      p.style.backgroundColor = '#ffffff';
+      p.style.borderRadius = '5px';
+      p.style.padding = '2px';
     }
-  
-
 
     // Combine
     card.appendChild(front);
