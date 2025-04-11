@@ -83,7 +83,7 @@ main {
 
 #grid-header-1 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 #example-card {
@@ -104,8 +104,6 @@ main {
     perspective: 1000px;
     width: 15rem;
     height: 20rem;
-    margin: auto; /* center horizontally */
-    margin-top: 50px; /* center vertically-ish */
 }
   
 .card {
@@ -194,7 +192,6 @@ h3 {
 }
   
 #player-image-container {
-    /* padding: 1rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,9 +234,6 @@ h3 {
 #grid-header-2 {
     display: flex;
     justify-content: space-around;
-    /* background-color: #B4B8AB;
-    border-radius: 1rem;
-    padding: 1rem; */
 }
 
 .info-section {
@@ -251,12 +245,39 @@ h3 {
     height: 100%;
 }
 
-#info-section-1 {
+#info-container-1 {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 5rem;
+    margin: 0 2rem 0 2rem;
+    padding: 0 2rem 0 2rem;
+}
+
+#info-section-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    border: 5px solid red;
+    height: 100%;
+    width: 100%;
+}
+
+#info-container-2 {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
+    margin: 0 2rem 0 2rem;
+    padding: 0 2rem 0 2rem;
 }
 
 #random-player-btn {
