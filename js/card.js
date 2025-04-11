@@ -25,8 +25,10 @@ fetch('https://sports.is120.ckearl.com')
     .then(data => {
         allData = data.data;
 
-        // Calling the randomplayer function to get a random card populated on the hero page
-        getRandomPlayer();
+        // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
+        if (window.location.pathname.includes("index.html")) {
+            getRandomPlayer();
+        }
 
         // Calling this code only if we are on the cardgrid.html page
         if (window.location.pathname.includes("cardgrid.html")) {
@@ -119,7 +121,6 @@ fetch('https://sports.is120.ckearl.com')
               
         }
     }
-
 
 // this function will be core, it will find a specific player given the data and a parameter, like the first few letters in a search bar
 // it will have to update every time there is an input in the search bar
