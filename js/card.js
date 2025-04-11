@@ -36,9 +36,6 @@ fetch('https://sports.is120.ckearl.com')
 
 
         getSpecificPlayer(allData, searchParam);
-
-        
-        
     })
     .catch(error => {
         console.error('Error:', error)
@@ -80,7 +77,7 @@ fetch('https://sports.is120.ckearl.com')
         //redefines randomTeam
         randomTeam = randomLeague.teams[randomTeam];
 
-        //grabs random player, ignores nba
+        // grabs random player, ignores nba
         // we will have to change the logic if he doesn't add nba players to rosters
         if (randomTeam.roster[0] !== null ) {
             randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
@@ -89,11 +86,23 @@ fetch('https://sports.is120.ckearl.com')
             
             // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
-            // this fills in the information on the random card on the hero page
-            playerName.innerHTML = randomPlayer.fullName;
-            playerTeam.innerHTML = randomTeam.name;
-            playerposition.innerHTML = randomPlayer.position;  
-            playerImage.src = randomPlayer.headshot;   
+            // this checks if there is already a card in the container and clears it if there is
+            const container = document.querySelector("#example-card");
+            container.innerHTML = "";
+
+            // Create and insert new card on hero page
+            createPlayerCard(
+                randomPlayer.fullName,
+                randomTeam.name,
+                randomPlayer.position,
+                randomPlayer.headshot,
+                randomPlayer.height,
+                randomPlayer.weight,
+                randomPlayer.age,
+                randomPlayer.experience,
+                "#example-card"
+            );
+              
         }
     }
 
@@ -117,7 +126,17 @@ function getSpecificPlayer(allData, searchParam) {
                     if (specificPlayer.fullName.includes(searchParam)) {
                         console.log(specificPlayer.fullName);
                         // displayPlayer(specificPlayer);
-                        
+                        createPlayerCard(
+                            specificPlayer.fullName,
+                            specificPlayer.team,
+                            specificPlayer.position,
+                            specificPlayer.headshot,
+                            specificPlayer.height,
+                            specificPlayer.weight,
+                            specificPlayer.age,
+                            specificPlayer.experience,
+                            "#card-grid"
+                        );
                     }
                     
 
@@ -129,18 +148,19 @@ function getSpecificPlayer(allData, searchParam) {
 
 
 // Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
-function createPlayerCard(name, team, position, imageSrc, containerId) {
-    const parentContainer = `'${containerId}'`;
-    
-    // Create main card container
+function createPlayerCard(name, team, position, imageSrc, height, weight, age, experience, containerId) {
+    const parentContainer = document.querySelector(containerId);
+  
+    const cardWrapper = document.createElement("div");
+    cardWrapper.className = "card-wrapper";
+  
     const card = document.createElement("div");
-    card.id = "card";
+    card.className = "card";
   
-    // Create front side of the card
+    // FRONT
     const front = document.createElement("div");
-    front.className = "front";
+    front.className = "card-face front";
   
-    // Player name container
     const nameContainer = document.createElement("div");
     nameContainer.id = "player-name-container";
   
@@ -155,7 +175,6 @@ function createPlayerCard(name, team, position, imageSrc, containerId) {
     nameContainer.appendChild(playerName);
     nameContainer.appendChild(playerTeam);
   
-    // Image container
     const imageContainer = document.createElement("div");
     imageContainer.id = "player-image-container";
   
@@ -165,28 +184,40 @@ function createPlayerCard(name, team, position, imageSrc, containerId) {
   
     imageContainer.appendChild(image);
   
-    // Player info (position)
-    const infoContainer = document.createElement("div");
-    infoContainer.id = "player-info";
-  
     const positionDiv = document.createElement("div");
     positionDiv.id = "player-position";
     positionDiv.textContent = position;
   
-    infoContainer.appendChild(positionDiv);
-  
-    // Assemble front of card
     front.appendChild(nameContainer);
     front.appendChild(imageContainer);
-    front.appendChild(infoContainer);
+    front.appendChild(positionDiv);
   
-    // Add front to card
-    card.appendChild(front);
+    // BACK
+    const back = document.createElement("div");
+    back.className = "card-face back";
   
-    // Append to the page (you can change the container)
-    document.querySelector(parentContainer).appendChild(card); // or document.querySelector("#someContainer").appendChild(card);
-}
+    const statHeader = document.createElement("h3");
+    statHeader.textContent = "Player Stats";
+    back.appendChild(statHeader);
+  
+    const statsObj = {
+      Height: height,
+      Weight: weight,
+      Age: age,
+      Experience: experience,
+    };
 
-// Call the function to create a player card
-// Example usage
-createPlayerCard("John Doe", "Team A", "Forward", "", "#example-card");
+    for (let key in statsObj) {
+      const p = document.createElement("p");
+      p.textContent = `${key}: ${statsObj[key]}`;
+      back.appendChild(p);
+    }
+  
+
+
+    // Combine
+    card.appendChild(front);
+    card.appendChild(back);
+    cardWrapper.appendChild(card);
+    parentContainer.appendChild(cardWrapper);
+}

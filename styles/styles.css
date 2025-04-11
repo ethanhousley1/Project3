@@ -64,10 +64,11 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     padding-top: 50px;
     padding-bottom: 50px;
-    height: 50vh;
+    height: 100%;
+    gap: 2rem;
 }
 
 #grid-header-1 {
@@ -77,6 +78,55 @@ main {
 
 #example-card {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+  
+#card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-wrapper {
+    perspective: 1000px;
+    width: 15rem;
+    height: 20rem;
+    margin: auto; /* center horizontally */
+    margin-top: 50px; /* center vertically-ish */
+}
+  
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+  
+.card-wrapper:hover .card {
+    transform: rotateY(180deg);
+}
+  
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
 }
   
 .front {
@@ -90,16 +140,24 @@ main {
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     font-family: var(--card-font-family);
-}
-
-/* .front, .back {
-    height: 100%;
-    width: 100%;
+    width: 15rem;
+    height: 20rem;
 }
 
 .back {
-    background-image: url('https://cdn.discordapp.com/attachments/1131950982032050226/1159426586486467634/Back.png');
-} */
+    background-color: var(--accent-color);
+    transform: rotateY(180deg);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: var(--card-font-family);
+    width: 15rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
 
 #player-name-container {
     width: 100%;
@@ -107,6 +165,11 @@ main {
     padding: 0.5rem 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin: 0;
 }
 
 #player-name {
