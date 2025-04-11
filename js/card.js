@@ -117,6 +117,7 @@ function getSpecificPlayer(allData, searchParam) {
                     if (specificPlayer.fullName.includes(searchParam)) {
                         console.log(specificPlayer.fullName);
                         // displayPlayer(specificPlayer);
+                        
                     }
                     
 
@@ -127,5 +128,65 @@ function getSpecificPlayer(allData, searchParam) {
 };
 
 
+// Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
+function createPlayerCard(name, team, position, imageSrc, containerId) {
+    const parentContainer = `'${containerId}'`;
+    
+    // Create main card container
+    const card = document.createElement("div");
+    card.id = "card";
+  
+    // Create front side of the card
+    const front = document.createElement("div");
+    front.className = "front";
+  
+    // Player name container
+    const nameContainer = document.createElement("div");
+    nameContainer.id = "player-name-container";
+  
+    const playerName = document.createElement("div");
+    playerName.id = "player-name";
+    playerName.textContent = name;
+  
+    const playerTeam = document.createElement("div");
+    playerTeam.id = "player-team";
+    playerTeam.textContent = team;
+  
+    nameContainer.appendChild(playerName);
+    nameContainer.appendChild(playerTeam);
+  
+    // Image container
+    const imageContainer = document.createElement("div");
+    imageContainer.id = "player-image-container";
+  
+    const image = document.createElement("img");
+    image.id = "player-image";
+    image.src = imageSrc;
+  
+    imageContainer.appendChild(image);
+  
+    // Player info (position)
+    const infoContainer = document.createElement("div");
+    infoContainer.id = "player-info";
+  
+    const positionDiv = document.createElement("div");
+    positionDiv.id = "player-position";
+    positionDiv.textContent = position;
+  
+    infoContainer.appendChild(positionDiv);
+  
+    // Assemble front of card
+    front.appendChild(nameContainer);
+    front.appendChild(imageContainer);
+    front.appendChild(infoContainer);
+  
+    // Add front to card
+    card.appendChild(front);
+  
+    // Append to the page (you can change the container)
+    document.querySelector(parentContainer).appendChild(card); // or document.querySelector("#someContainer").appendChild(card);
+}
 
-
+// Call the function to create a player card
+// Example usage
+createPlayerCard("John Doe", "Team A", "Forward", "", "#example-card");
