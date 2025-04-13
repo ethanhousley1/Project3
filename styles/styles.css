@@ -17,9 +17,9 @@
     box-sizing: border-box;
 }
 
-body {
-    /* display: grid; */
-    /* height: 100vh; */
+.logo a {
+    text-decoration: none;
+    color: inherit;
 }
 
 header {
