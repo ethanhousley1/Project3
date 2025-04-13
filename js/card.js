@@ -15,11 +15,6 @@ let playerImage = document.getElementById('player-image');
 body = document.querySelector('body');
 body.appendChild(playerStats);
 
-
-
-
-
-
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
@@ -177,7 +172,7 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
   
     const nameContainer = document.createElement("div");
     nameContainer.id = "player-name-container";
-    nameContainer.style.backgroundColor = '#ffffff';
+    nameContainer.style.backgroundColor = '#EEFOEB';
   
     const playerName = document.createElement("div");
     playerName.id = "player-name";
@@ -201,7 +196,7 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
   
     const positionDiv = document.createElement("div");
     positionDiv.id = "player-position";
-    positionDiv.style.backgroundColor = '#ffffff';
+    positionDiv.style.backgroundColor = '#EEFOEB';
     positionDiv.textContent = position;
   
     front.appendChild(nameContainer);
@@ -224,6 +219,7 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
     statHeader.style.padding = '2px';
     back.appendChild(statHeader);
   
+    // Some players didn't have jersey numbers, so we opted to just go for the raw stats available on the API here
     const statsObj = {
       Height: height,
       Weight: weight,
@@ -231,14 +227,25 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
       Experience: experience,
     };
 
-    for (let key in statsObj) {
-      const p = document.createElement("p");
-      p.textContent = `${key}: ${statsObj[key]}`;
-      back.appendChild(p);
-      p.style.backgroundColor = '#ffffff';
-      p.style.borderRadius = '5px';
-      p.style.padding = '2px';
-    }
+    const heightPlayer = document.createElement('p');
+    heightPlayer.textContent = `Height: ${Math.floor((statsObj.Height)/12)}' ${(statsObj.Height % 12)}"`;
+    heightPlayer.id = 'back-inner';
+    back.appendChild(heightPlayer);
+
+    const weightPlayer = document.createElement('p');
+    weightPlayer.textContent = `Weight: ${statsObj.Weight} lbs`
+    weightPlayer.id = 'back-inner';
+    back.appendChild(weightPlayer);
+
+    const agePlayer = document.createElement('p');
+    agePlayer.textContent = `Age: ${statsObj.Age} years`
+    agePlayer.id = 'back-inner';
+    back.appendChild(agePlayer);
+
+    const experiencePlayer = document.createElement('p');
+    experiencePlayer.textContent = `Experience: ${statsObj.Experience} years`
+    experiencePlayer.id = 'back-inner';
+    back.appendChild(experiencePlayer);
 
     // Combine
     card.appendChild(front);

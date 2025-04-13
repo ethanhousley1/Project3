@@ -6,6 +6,9 @@
     --font-family: "DM Serif Text", serif;
     --card-font-family: "Anton", sans-serif;
     --h1-font-family: "Special Gothic Expanded One", sans-serif;
+    --accent-color-2: #B4B8AB;
+    --accent-color-3: #EEF0EB;
+    --accent-color-4: #284B63;
 }
 
 * {
@@ -15,8 +18,8 @@
 }
 
 body {
-    display: grid;
-    height: 100vh;
+    /* display: grid; */
+    /* height: 100vh; */
 }
 
 header {
@@ -68,6 +71,9 @@ h1 {
 main {
     background-color: var(--bg-color);
     font-family: var(--font-family);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
 }
 
 .hero-section {
@@ -77,8 +83,8 @@ main {
     justify-content: center;
     padding-top: 50px;
     padding-bottom: 50px;
-    height: 100%;
-    gap: 2rem;
+    height: 60%;
+    gap: 5rem;
 }
 
 #grid-header-1 {
@@ -242,7 +248,10 @@ h3 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 80%;
+    background-color: var(--heading-color);
+    padding: 4rem 10rem 4rem 10rem;
+    gap: 2rem;
 }
 
 #info-container-1 {
@@ -252,20 +261,27 @@ h3 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 5rem;
+    height: 25rem;
     margin: 0 2rem 0 2rem;
     padding: 0 2rem 0 2rem;
+    /* border: 5px solid red; */
 }
 
 #info-section-1 {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 5rem;
-    border: 5px solid red;
     height: 100%;
     width: 100%;
+    color: white;
+    text-align: center;
+
+    h1 {
+        display: flex;
+        justify-self: flex-start;
+    }
 }
 
 #info-container-2 {
@@ -275,16 +291,44 @@ h3 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 5rem;
+    height: 25rem;
     margin: 0 2rem 0 2rem;
     padding: 0 2rem 0 2rem;
+    /* border: 5px solid red; */
+}
+
+#info-section-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.back-example {
+    background-image: url(../images/az-cardinals-logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    gap: 2rem;
+}
+
+#back-inner {
+    background-color: white;
+    border-radius: 5px;
+    padding: 2px;
 }
 
 #random-player-btn {
     height: 2rem;
     width: auto;
     border-radius: 1rem;
-    background-color: var(--heading-color);
+    background-color: black;
     color: white;
     font-weight: bold;
     padding: 0.4rem 1rem;
