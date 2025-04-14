@@ -17,6 +17,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: var(--heading-color);
+}
+
 .logo a {
     text-decoration: none;
     color: inherit;
@@ -27,6 +31,7 @@ header {
     top: 0;
     z-index: 1000;
     width: 100%;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 10px 15px;
 }
 
 h1 {
@@ -53,6 +58,12 @@ h1 {
     padding-left: 50px;
 }
 
+.logo a:hover {
+    color: var(--accent-color-2);
+    transition: ease-in-out 0.2s;
+    cursor: pointer;
+}
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -68,6 +79,12 @@ h1 {
     }
 }
 
+.nav-links a:hover {
+    color: var(--accent-color-2);
+    transition: ease-in-out 0.2s;
+    cursor: pointer;
+}
+
 main {
     background-color: var(--bg-color);
     font-family: var(--font-family);
@@ -81,10 +98,12 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    height: 60%;
+    margin: 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    height: 100%;
     gap: 5rem;
+    background-color: var(--bg-color);
 }
 
 #grid-header-1 {
@@ -236,73 +255,45 @@ h3 {
     justify-content: space-around;
 }
 
-.info-section {
+.info-section-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: var(--heading-color);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 85%;
     height: 80%;
-    background-color: var(--heading-color);
     padding: 2rem 10rem 2rem 10rem;
     gap: 2rem;
 }
 
-#info-container-1 {
+.card-info-1,
+.card-info-2 {
     display: flex;
-    flex-direction: row;
-    /* gap: 10rem; */
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 25rem;
-    margin: 0 2rem 0 2rem;
-    padding: 0 2rem 0 2rem;
-    /* border: 5px solid red; */
-
-    .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    flex-shrink: 0;
+    width: 15rem;
+    height: 20rem;
 }
 
-#info-section-1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+.card-front-example,
+.card-back-example {
+    width: 100%;
     height: 100%;
-    width: 100%;
-    color: white;
-    text-align: center;
-
-    h1 {
-        display: flex;
-        justify-self: flex-start;
-    }
-}
-
-#info-container-2 {
     display: flex;
-    flex-direction: row;
-    /* gap: 10rem; */
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 25rem;
-    margin: 0 2rem 0 2rem;
-    padding: 0 2rem 0 2rem;
-    /* border: 5px solid red; */
-
-    .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 }
 
+#info-section-1,
 #info-section-2 {
     display: flex;
     flex-direction: column;
@@ -330,6 +321,16 @@ h3 {
     padding: 2px;
 }
 
+.footer {
+    background-color: var(--heading-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+}
+  
+
 #random-player-btn {
     height: 2rem;
     width: auto;
@@ -354,37 +355,25 @@ h3 {
     transition: ease-in-out 0.2s;
 }
 
-@media (max-width: 480px) {
-
-}
-
-@media (max-width: 768px) {
-
-}
-
-@media (max-width: 1024px) {
-
-}
-
-@media (max-width: 1107px) {
-    
-}
-
-@media (min-width: 1281px) {
-
-}
-
-
 /* card grid styles */
 .cardgrid-body {
     display: flex;
     flex-direction: column;
     place-items: center;
     position: relative;
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
-    gap: 2rem;
     font-family: var(--font-family);
+}
+
+.background-color-wrapper {
+    background-color: var(--bg-color);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .cardgrid-description {
@@ -392,10 +381,12 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 100%;
     height: 100%;
     gap: 2rem;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .cardgrid-container {
@@ -404,6 +395,7 @@ h3 {
     flex-direction: column;
     position: relative;
     width: 95%;
+    transform: translateX(2.5%);
     height: fit-content;
     border: 3px solid black;
     border-radius: 1rem;
@@ -454,6 +446,82 @@ h3 {
     height: 95%;
     width: auto;
     border-radius: 0.5rem;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: repeat(5, minmax(0, 1fr));
+}
+
+/* Media Queries for Responsivity */
+@media (max-width: 530px) {
+    .info-section {
+        padding: 2rem 2rem 2rem 2rem;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 577px) {
+    header {
+        position: relative;
+    }
+
+    .header-content {
+        flex-direction: column;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    #grid-header-2 {
+        text-align: center;
+    }
+
+    #card-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 707px) {
+    #card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 0;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-section {
+        width: 100%;
+        height: 100%;
+        padding: 2rem 8rem 2rem 8rem;
+        grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    }
+}
+
+@media (min-width: 1281px) {
+    .info-section {
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+    }
 }

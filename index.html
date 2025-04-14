@@ -26,7 +26,6 @@
       </nav>
     </div>
   </header>
-  
   <main>
     <section class="hero-section">
       <div id="grid-header-1">
@@ -37,47 +36,49 @@
         <h1>Sports Cards Plus!</h1>
       </div>
     </section>
-    <div class="info-section">
-      <!-- Section introducing the cards and describing what's on the front of the card -->
-      <div id="info-container-1">
-        <div class="card">
-          <div class="front">
-            <div id="player-name-container">
-              <div id="player-name">Kyler Murray</div>
-              <div id="player-team">Arizona Cardinals</div>
+    <div class="info-section-wrapper">
+      <div class="info-section">
+        <!-- Section introducing the cards and describing what's on the front of the card -->
+        <div class="card-front-example">
+          <div class="card card-info-1">
+            <div class="front card-front-example">
+              <div id="player-name-container">
+                <div id="player-name">Kyler Murray</div>
+                <div id="player-team">Arizona Cardinals</div>
+              </div>
+              <div id="player-image-container">
+                <img id="player-image" src="./images/kyler-murray.png" alt="Headshot of Kyler Murray">
+              </div>
+              <div id="player-position">QB</div>
             </div>
-            <div id="player-image-container">
-              <img id="player-image" src="./images/kyler-murray.png" alt="Headshot of Kyler Murray">
-            </div>
-            <div id="player-position">QB</div>
           </div>
         </div>
         <div id="info-section-1">
           <h1>Your premiere spot for all major league trading cards!</h1>
           <h2>Sports Cards Plus is dedicated to providing you with the best, up-to-date playing cards of your favorite players in the NBA, NHL, MLB, and NFL! The front of our cards displays the player's name, the team they currently play for, their recent headshot, and their current position.</h2>
         </div>
-      </div>
-      <!-- This will be a section showing the back of the card and describing what's on it -->
-      <div id="info-container-2">
+        <!-- This will be a section showing the back of the card and describing what's on it -->
         <div id="info-section-2">
           <h1>Up-to-date stats and info on all your favorite players!</h1>
           <h2>We ensure that you're never a beat behind. Your favorite players' height, weight, age, and years in their league are all displayed when you hover over their card. It's that easy! Sports Cards Plus make it easy to be a hardcore fan of that player you can't know enough of.</h2>
         </div>
-        <div class="card">
-          <div class="front back-example">
-            <h3 id="back-inner">Player Stats</h3>
-            <p id="back-inner">Height: 70</p>
-            <p id="back-inner">Weight: 207</p>
-            <p id="back-inner">Age: 27</p>
-            <p id="back-inner">Experience: 6</p>
+        <div class="card-back-example">
+          <div class="card card-info-2">
+            <div class="front back-example">
+              <h3 id="back-inner">Player Stats</h3>
+              <p id="back-inner">Height: 70</p>
+              <p id="back-inner">Weight: 207</p>
+              <p id="back-inner">Age: 27</p>
+              <p id="back-inner">Experience: 6</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-  <footer>
-
-  </footer>
+  <footer class="footer">
+    <p>&copy; 2025 Sports Cards Plus. All rights reserved.</p>
+  </footer>  
   <button onclick="getRandomPlayer()" id="random-player-btn">Randomize your player!</button>
   <script src="./js/main.js"></script>
   <script src="./js/card.js"></script>
