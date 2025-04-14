@@ -3,6 +3,7 @@
 let allData; // api data stored globally, not really used yet
 // it must import the API
 
+
 function randomInt (min, max) {return Math.floor(Math.random() * (max-min + 1)) + min; }; // creating a random int function for randomizer
 playerStats = document.createElement('p');
 
@@ -14,6 +15,8 @@ let playerImage = document.getElementById('player-image');
 
 body = document.querySelector('body');
 body.appendChild(playerStats);
+
+let cardWrapperCounter = 0;
 
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
@@ -34,7 +37,7 @@ fetch('https://sports.is120.ckearl.com')
             document.getElementById('cardgrid-header').appendChild(searchButton);
 
             // Calling card collection function to populate all cards on the cardgrid page
-            populateAllCards(allData, "#card-grid");
+            // populateAllCards(allData, "#card-grid");
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
@@ -49,7 +52,9 @@ fetch('https://sports.is120.ckearl.com')
                 console.log(searchParam);
 
                 // Calling the function to create the card for that player
+                
                 getSpecificPlayer(allData, searchParam);
+                cardWrapperCounter = 0;
             });
         }
     })
@@ -129,6 +134,7 @@ fetch('https://sports.is120.ckearl.com')
 
 
 function getSpecificPlayer(allData, searchParam) {
+    specificPlayerArray = [];
     selectedLeagues = ['mlb','nfl','nhl'] // i use this to ditch the nba
     // console.log(allData);
     // console.log(allData[league].teams[team].roster[player].fullName
@@ -137,9 +143,22 @@ function getSpecificPlayer(allData, searchParam) {
             for (let team in allData[league].teams) {
                 for (let player in allData[league].teams[team].roster) {
                     let specificPlayer = allData[league].teams[team].roster[player];
-                    if (specificPlayer.fullName.includes(searchParam)) {
+                    if (specificPlayer.fullName.toLowerCase().includes(searchParam)) {
                         // console.log(specificPlayer.fullName);
                         // displayPlayer(specificPlayer);
+                        createPlayerObject = {
+                            "fullName": specificPlayer.fullName,
+                            "teamName": allData[league].teams[team].name,
+                            "position": specificPlayer.position,
+                            "headshot": specificPlayer.headshot,
+                            "height": specificPlayer.height,
+                            "weight": specificPlayer.weight,
+                            "age": specificPlayer.age,
+                            "experience" : specificPlayer.experience,
+                            "logo" : allData[league].teams[team].logo,
+                            "div" : "#card-grid",
+                        }
+                        specificPlayerArray.push(createPlayerObject);
                         createPlayerCard(
                             specificPlayer.fullName,
                             allData[league].teams[team].name,
@@ -162,8 +181,13 @@ function getSpecificPlayer(allData, searchParam) {
 
 // Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
 function createPlayerCard(name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId) {
+    cardWrapperCounter = cardWrapperCounter + 1;
+    console.log(cardWrapperCounter);
+    if (cardWrapperCounter > 20) {
+        return
+    }
     const parentContainer = document.querySelector(containerId);
-  
+    
     const cardWrapper = document.createElement("div");
     cardWrapper.className = "card-wrapper";
   
@@ -256,6 +280,10 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
     card.appendChild(back);
     cardWrapper.appendChild(card);
     parentContainer.appendChild(cardWrapper);
+
+    //create the load more button;
+    loadBtn = document.createElement('button');
+    
 }
 
 // Making a function that will print the card collection
