@@ -5,6 +5,10 @@
     --font-color: black;
     --font-family: "DM Serif Text", serif;
     --card-font-family: "Anton", sans-serif;
+    --h1-font-family: "Special Gothic Expanded One", sans-serif;
+    --accent-color-2: #B4B8AB;
+    --accent-color-3: #EEF0EB;
+    --accent-color-4: #284B63;
 }
 
 * {
@@ -13,14 +17,24 @@
     box-sizing: border-box;
 }
 
-body {
-    display: grid;
+.logo a {
+    text-decoration: none;
+    color: inherit;
 }
 
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+    font-family: var(--h1-font-family);
+    font-weight: bold;
 }
 
 .header-content {
@@ -57,25 +71,76 @@ header {
 main {
     background-color: var(--bg-color);
     font-family: var(--font-family);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
 }
 
-.grid-container {
+.hero-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     padding-top: 50px;
     padding-bottom: 50px;
-    height: 50vh;
+    height: 60%;
+    gap: 5rem;
 }
 
 #grid-header-1 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 #example-card {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+  
+#card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-wrapper {
+    perspective: 1000px;
+    width: 15rem;
+    height: 20rem;
+}
+  
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+  
+.card-wrapper:hover .card {
+    transform: rotateY(180deg);
+}
+  
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
 }
   
 .front {
@@ -89,37 +154,50 @@ main {
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     font-family: var(--card-font-family);
-}
-
-/* .front, .back {
-    height: 100%;
-    width: 100%;
+    width: 15rem;
+    height: 20rem;
 }
 
 .back {
-    background-image: url('https://cdn.discordapp.com/attachments/1131950982032050226/1159426586486467634/Back.png');
-} */
+    background-color: var(--accent-color);
+    transform: rotateY(180deg);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: var(--card-font-family);
+    width: 15rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
 
 #player-name-container {
     width: 100%;
     text-align: center;
     padding: 0.5rem 0;
+    max-height: 5rem;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
-#player-name {
+h3 {
     font-size: 1.3rem;
+    margin: 0;
+}
+
+#player-name {
+    font-size: 2rem;
     margin: 0;
 }
 
 #player-team {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
   
 #player-image-container {
-    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,7 +227,13 @@ main {
   
 #player-position {
     flex: 1;
+    padding: 0;
+    margin: 0;
     text-align: center;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    font-size: 1.2rem;
 }
   
 
@@ -158,10 +242,111 @@ main {
     justify-content: space-around;
 }
 
-#grid {
-    display: grid;
+.info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    background-color: var(--heading-color);
+    padding: 2rem 10rem 2rem 10rem;
+    gap: 2rem;
 }
 
+#info-container-1 {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25rem;
+    margin: 0 2rem 0 2rem;
+    padding: 0 2rem 0 2rem;
+    /* border: 5px solid red; */
+}
+
+#info-section-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+
+    h1 {
+        display: flex;
+        justify-self: flex-start;
+    }
+}
+
+#info-container-2 {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25rem;
+    margin: 0 2rem 0 2rem;
+    padding: 0 2rem 0 2rem;
+    /* border: 5px solid red; */
+}
+
+#info-section-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.back-example {
+    background-image: url(../images/az-cardinals-logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    gap: 2rem;
+}
+
+#back-inner {
+    background-color: white;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+#random-player-btn {
+    height: 2rem;
+    width: auto;
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    border: none;
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#random-player-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: ease-in-out 0.2s;
+}
 
 
 /* card grid styles */
@@ -172,23 +357,41 @@ main {
     position: relative;
     width: 100%;
     height: 100%;
+    gap: 2rem;
+    font-family: var(--font-family);
 }
+
+.cardgrid-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
 .cardgrid-container {
     display: flex;
     align-content: center;
     flex-direction: column;
     position: relative;
-    top: 10rem;
     width: 95%;
-    height: 200vh;
+    height: fit-content;
     border: 3px solid black;
     border-radius: 1rem;
 }
+
 #cardgrid-header {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
     padding: 1rem;
 }
+
 #search-bar {
     height: 2rem;
     border-radius: 1rem;
@@ -196,13 +399,35 @@ main {
     padding: 0.4rem;
 }
 
-#cardgrid {
+#search-bar:focus {
+    outline: none;
+    border: 2px solid var(--heading-color);
+}
+
+#search-button {
+    height: 2rem;
+    width: auto;
+    border-radius: 1rem;
+    background-color: var(--heading-color);
+    color: white;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#card-grid {
     display: grid;
     border: 2px solid var(--heading-color);
     margin: 1rem;
-    height: 100%;
+    padding: 3rem;
+    gap: 2rem;
+    height: 95%;
     width: auto;
     border-radius: 0.5rem;
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: repeat(5, minmax(0, 1fr));
 }
