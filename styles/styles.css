@@ -407,7 +407,7 @@ h3 {
     cursor: pointer;
 }
 
-#cardgrid {
+#card-grid {
     display: grid;
     border: 2px solid var(--heading-color);
     margin: 1rem;

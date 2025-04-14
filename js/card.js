@@ -32,6 +32,9 @@ fetch('https://sports.is120.ckearl.com')
             searchButton.id = 'search-button';
             searchButton.innerHTML = 'Search for your favorite player';
             document.getElementById('cardgrid-header').appendChild(searchButton);
+
+            // Calling card collection function to populate all cards on the cardgrid page
+            populateAllCards(allData, "#card-grid");
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
@@ -50,6 +53,7 @@ fetch('https://sports.is120.ckearl.com')
             });
         }
     })
+
     .catch(error => {
         console.error('Error:', error)
     });
@@ -253,3 +257,39 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
     cardWrapper.appendChild(card);
     parentContainer.appendChild(cardWrapper);
 }
+
+// Making a function that will print the card collection
+// this will be used for the card collection page
+// it will use createPlayerCard
+function populateAllCards(allData, containerId) {
+    const container = document.querySelector(containerId);
+    container.innerHTML = ""; // Clear previous cards if any
+  
+    const selectedLeagues = ["mlb", "nfl", "nhl"];
+  
+    selectedLeagues.forEach((league) => {
+      const leagueData = allData[league];
+      if (!leagueData) return;
+  
+      leagueData.teams.forEach((team) => {
+        team.roster.forEach((player) => {
+          // Only create card if player data is complete
+          if (player && player.fullName && player.headshot) {
+            createPlayerCard(
+              player.fullName,
+              team.name, // if this doesn't work use allData[league].teams[team].name,
+              player.position,
+              player.headshot,
+              player.height,
+              player.weight,
+              player.age,
+              player.experience,
+              team.logo, // if this doesn't work use allData[league].teams[team].logo,
+              containerId
+            );
+          }
+        });
+      });
+    });
+}
+  
