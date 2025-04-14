@@ -370,10 +370,6 @@ h3 {
     height: 100%;
     gap: 2rem;
     margin-top: 2rem;
-
-    h2 {
-
-    }
 }
 
 .cardgrid-container {
@@ -382,7 +378,7 @@ h3 {
     flex-direction: column;
     position: relative;
     width: 95%;
-    height: 200vh;
+    height: fit-content;
     border: 3px solid black;
     border-radius: 1rem;
 }
@@ -427,7 +423,7 @@ h3 {
     display: grid;
     border: 2px solid var(--heading-color);
     margin: 1rem;
-    padding: 3rem 0 0 3rem;
+    padding: 3rem 0 3rem 4rem;
     gap: 2rem;
     height: 95%;
     width: auto;
