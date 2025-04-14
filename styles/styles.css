@@ -423,11 +423,7 @@ h3 {
     display: grid;
     border: 2px solid var(--heading-color);
     margin: 1rem;
-<<<<<<< HEAD
-    padding: 2rem 0 3rem 4rem;
-=======
     padding: 3rem;
->>>>>>> 6ebad6eff28d6e2bedd93a37f3863987628ca240
     gap: 2rem;
     height: 95%;
     width: auto;
