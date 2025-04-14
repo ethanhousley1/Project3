@@ -159,29 +159,32 @@ function getSpecificPlayer(allData, searchParam) {
                             "div" : "#card-grid",
                         }
                         specificPlayerArray.push(createPlayerObject);
-                        createPlayerCard(
-                            specificPlayer.fullName,
-                            allData[league].teams[team].name,
-                            specificPlayer.position,
-                            specificPlayer.headshot,
-                            specificPlayer.height,
-                            specificPlayer.weight,
-                            specificPlayer.age,
-                            specificPlayer.experience,
-                            allData[league].teams[team].logo,
-                            "#card-grid"
-                        );
+                        console.log(createPlayerObject);
+    
                     }
                 }
             }
         }
     }
+    createPlayerCard(specificPlayerArray);
 };
 
 
 // Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
-function createPlayerCard(name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId) {
-    cardWrapperCounter = cardWrapperCounter + 1;
+
+//name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId
+
+function createPlayerCard(specificPlayerArray) {
+    
+    for (let i = 0; i < 20; i++) {
+        let specificPlayer = specificPlayerArray[i];
+        let name = specificPlayer.fullName;
+        let team = specificPlayer.team;
+        let position = specificPlayer.position;
+
+
+        
+    }
     console.log(cardWrapperCounter);
     if (cardWrapperCounter > 20) {
         return
