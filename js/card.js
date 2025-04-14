@@ -277,14 +277,14 @@ function populateAllCards(allData, containerId) {
           if (player && player.fullName && player.headshot) {
             createPlayerCard(
               player.fullName,
-              team.name, // if this doesn't work use allData[league].teams[team].name,
+              team.name,
               player.position,
               player.headshot,
               player.height,
               player.weight,
               player.age,
               player.experience,
-              team.logo, // if this doesn't work use allData[league].teams[team].logo,
+              team.logo,
               containerId
             );
           }
