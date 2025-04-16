@@ -137,7 +137,9 @@ fetch('https://sports.is120.ckearl.com')
                 "age": randomPlayer.age,
                 "experience": randomPlayer.experience,
                 "logo": randomTeam.logo,
-                "div": "#example-card"
+                "div": "#example-card",
+                "color1": randomTeam.colors[0],
+                "color2": randomTeam.colors[1],
             };
             // the old way we did it
             // randomPlayer.fullName,
@@ -188,6 +190,8 @@ function getSpecificPlayer(allData, searchParam) {
                             "experience" : specificPlayer.experience,
                             "logo" : allData[league].teams[team].logo,
                             "div" : "#card-grid",
+                            "color1" : allData[league].teams[team].colors[0],
+                            "color2": allData[league].teams[team].colors[1]
                         }
                         specificPlayerArray.push(createPlayerObject);
     
@@ -218,6 +222,9 @@ function createPlayerCard(specificPlayerArray) {
         let experience = specificPlayer.experience;
         let logoSrc = specificPlayer.logo;
         let containerId = specificPlayer.div;
+        let color1 = specificPlayer.color1.color;
+        let color2 = specificPlayer.color2.color;
+        console.log(color2);
 
         
         const parentContainer = document.querySelector(containerId);
@@ -231,10 +238,10 @@ function createPlayerCard(specificPlayerArray) {
         // FRONT
         const front = document.createElement("div");
         front.className = "card-face front";
-    
+        front.style.background = '';
         const nameContainer = document.createElement("div");
         nameContainer.id = "player-name-container";
-        nameContainer.style.backgroundColor = '#EEFOEB';
+        nameContainer.style.backgroundColor = '#ffffff;';
     
         const playerName = document.createElement("div");
         playerName.id = "player-name";
@@ -249,7 +256,7 @@ function createPlayerCard(specificPlayerArray) {
     
         const imageContainer = document.createElement("div");
         imageContainer.id = "player-image-container";
-    
+        imageContainer.style.background = `linear-gradient(to top right, ${color1}, ${color2})`
         const image = document.createElement("img");
         image.id = "player-image";
         image.src = imageSrc;
@@ -258,7 +265,7 @@ function createPlayerCard(specificPlayerArray) {
     
         const positionDiv = document.createElement("div");
         positionDiv.id = "player-position";
-        positionDiv.style.backgroundColor = '#EEFOEB';
+        positionDiv.style.backgroundImage = '';
         positionDiv.textContent = position;
     
         front.appendChild(nameContainer);
@@ -364,7 +371,9 @@ function populateAllCards(allData, containerId) {
                         "age": player.age,
                         "experience" :player.experience,
                         "logo" :team.logo,
-                        "div" :containerId
+                        "div" :containerId,
+                        "color1" : team.colors[0],
+                        "color2": team.colors[1],
                     };
                     specificPlayerArray.push(createPlayerObject);
                     ;
