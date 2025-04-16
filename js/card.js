@@ -45,6 +45,7 @@ fetch('https://sports.is120.ckearl.com')
             searchButton.addEventListener('click', function() {
                 // Clearing previous players searched by the user to allow for a new card to be searched
                 const container = document.querySelector('#card-grid');
+                specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
                 container.innerHTML = '';
 
                 // Checking for the input from the search bar
