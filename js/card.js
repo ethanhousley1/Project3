@@ -18,7 +18,8 @@ body.appendChild(playerStats);
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
-        allData = data.data;
+        allData = data
+        console.log(allData);
 
         // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
         if (window.location.pathname.includes("index.html")) {
