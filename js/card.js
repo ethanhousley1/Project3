@@ -39,7 +39,7 @@ fetch('https://sports.is120.ckearl.com')
             document.getElementById('cardgrid-header').appendChild(searchButton);
 
             // Calling card collection function to populate all cards on the cardgrid page
-            // populateAllCards(allData, "#card-grid");
+            populateAllCards(allData, "#card-grid");
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
@@ -319,17 +319,17 @@ function createPlayerCard(specificPlayerArray) {
         loadBtn = document.createElement('button');
         
     }
-
+}
     // Making a function that will print the card collection
     // this will be used for the card collection page
     // it will use createPlayerCard
-    function populateAllCards(allData, containerId) {
+function populateAllCards(allData, containerId) {
         // Set the parent container as container variable
     const container = document.querySelector(containerId);
-        container.innerHTML = ""; // Clear previous cards if any
+    container.innerHTML = ""; // Clear previous cards if any
     
         // This can include nba later if that gets updated
-    const selectedLeagues = ["mlb", "nfl", "nhl"];
+    const selectedLeagues = ["mlb", "nfl", "nhl", "nba"];
     
         // Looping through each selected league, and then through each team and player
     selectedLeagues.forEach((league) => {
@@ -344,23 +344,35 @@ function createPlayerCard(specificPlayerArray) {
               // Only creating card if player data is complete
               if (player && player.fullName && player.headshot) {
                     // Calling the createPlayerCard function to create a card for each player in each team
-                createPlayerCard(
-                      player.fullName,
-                      team.name,
-                      player.position,
-                      player.headshot,
-                      player.height,
-                      player.weight,
-                      player.age,
-                      player.experience,
-                      team.logo,
-                      containerId
-                    );
+                    //"fullName": specificPlayer.fullName,
+                    // "teamName": allData[league].teams[team].name,
+                    // "position": specificPlayer.position,
+                    // "headshot": specificPlayer.headshot,
+                    // "height": specificPlayer.height,
+                    // "weight": specificPlayer.weight,
+                    // "age": specificPlayer.age,
+                    // "experience" : specificPlayer.experience,
+                    // "logo" : allData[league].teams[team].logo,
+                    // "div" : "#card-grid",
+                    createPlayerObject = {
+                        "fullName": player.fullName,
+                        "teamName":team.name,
+                        "position":player.position,
+                        "headshot":player.headshot,
+                        "height":player.height,
+                        "weight": player.weight,
+                        "age": player.age,
+                        "experience" :player.experience,
+                        "logo" :team.logo,
+                        "div" :containerId
+                    };
+                    specificPlayerArray.push(createPlayerObject);
+                    ;
               }
                 });
           });
         });
-    }
+    createPlayerCard(specificPlayerArray);
 }
 
 function loadMoreBtn() {
