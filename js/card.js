@@ -321,8 +321,9 @@ function createPlayerCard(specificPlayerArray) {
     // Making a function that will print the card collection
     // this will be used for the card collection page
     // it will use createPlayerCard
-    function populateAllCards(allData, containerId) {
-        const container = document.querySelector(containerId);
+function populateAllCards(allData, containerId) {
+        // Set the parent container as container variable
+    const container = document.querySelector(containerId);
         container.innerHTML = ""; // Clear previous cards if any
     
         const selectedLeagues = ["mlb", "nfl", "nhl"];
