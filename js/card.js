@@ -361,3 +361,11 @@ function createPlayerCard(specificPlayerArray) {
         });
     }
 }
+
+function loadMoreBtn() {
+    for (i = 0; i < 20; i++) {
+        specificPlayerArray.shift()
+    }
+    console.log(specificPlayerArray.length);
+    createPlayerCard(specificPlayerArray);
+}
