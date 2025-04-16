@@ -165,7 +165,7 @@ fetch('https://sports.is120.ckearl.com')
 
 
 function getSpecificPlayer(allData, searchParam) {
-    selectedLeagues = ['mlb','nfl','nhl'] // i use this to ditch the nba
+    selectedLeagues = ['mlb','nfl','nhl', 'nba'] 
     // console.log(allData);
     // console.log(allData[league].teams[team].roster[player].fullName
     for (let league in allData) {
@@ -173,7 +173,7 @@ function getSpecificPlayer(allData, searchParam) {
             for (let team in allData[league].teams) {
                 for (let player in allData[league].teams[team].roster) {
                     let specificPlayer = allData[league].teams[team].roster[player];
-                    if (specificPlayer.fullName.toLowerCase().includes(searchParam)) {
+                    if (specificPlayer.fullName.toLowerCase().includes(searchParam.toLowerCase())) {
                         // console.log(specificPlayer.fullName);
                         // displayPlayer(specificPlayer);
                         
