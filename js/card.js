@@ -263,34 +263,41 @@ function createPlayerCard(name, team, position, imageSrc, height, weight, age, e
 // this will be used for the card collection page
 // it will use createPlayerCard
 function populateAllCards(allData, containerId) {
+    // Set the parent container as container variable
     const container = document.querySelector(containerId);
     container.innerHTML = ""; // Clear previous cards if any
   
+    // This can include nba later if that gets updated
     const selectedLeagues = ["mlb", "nfl", "nhl"];
   
+    // Looping through each selected league, and then through each team and player
     selectedLeagues.forEach((league) => {
-      const leagueData = allData[league];
-      if (!leagueData) return;
+        const leagueData = allData[league];
+        // Checking if leagueData exists, then continuing if it does, or returning if it doesn't
+        if (!leagueData) return;
   
-      leagueData.teams.forEach((team) => {
-        team.roster.forEach((player) => {
-          // Only create card if player data is complete
-          if (player && player.fullName && player.headshot) {
-            createPlayerCard(
-              player.fullName,
-              team.name,
-              player.position,
-              player.headshot,
-              player.height,
-              player.weight,
-              player.age,
-              player.experience,
-              team.logo,
-              containerId
-            );
-          }
+        // Looping through each team in the league
+        leagueData.teams.forEach((team) => {
+            // Looping through each player in each team
+            team.roster.forEach((player) => {
+            // Only creating card if player data is complete
+            if (player && player.fullName && player.headshot) {
+                // Calling the createPlayerCard function to create a card for each player in each team
+                createPlayerCard(
+                    player.fullName,
+                    team.name,
+                    player.position,
+                    player.headshot,
+                    player.height,
+                    player.weight,
+                    player.age,
+                    player.experience,
+                    team.logo,
+                    containerId
+                );
+            }
+            });
         });
-      });
     });
 }
   
