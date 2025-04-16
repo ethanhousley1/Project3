@@ -330,6 +330,23 @@ h3 {
     font-size: 0.9rem;
 }
   
+.button {
+    height: 2rem;
+    width: auto;
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    margin: 1rem;
+    border: none;
+    width: 40%;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;    
+}
 
 #random-player-btn {
     height: 2rem;
