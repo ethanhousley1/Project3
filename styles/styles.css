@@ -217,6 +217,11 @@ h3 {
     width: 100%;
 }
 
+.example-gradient {
+    /* linear-gradient(to top right, ${color1}, ${color2})` */
+    background: linear-gradient(to top right, #a40227, #ffffff);
+}
+
 #player-image {
     max-width: 250px;
     display: flex;

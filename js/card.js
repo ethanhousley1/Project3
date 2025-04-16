@@ -242,6 +242,7 @@ function createPlayerCard(specificPlayerArray) {
         const nameContainer = document.createElement("div");
         nameContainer.id = "player-name-container";
         nameContainer.style.backgroundColor = '#ffffff;';
+        nameContainer.style.zIndex = 2;
     
         const playerName = document.createElement("div");
         playerName.id = "player-name";
@@ -257,6 +258,7 @@ function createPlayerCard(specificPlayerArray) {
         const imageContainer = document.createElement("div");
         imageContainer.id = "player-image-container";
         imageContainer.style.background = `linear-gradient(to top right, ${color1}, ${color2})`
+        imageContainer.style.zIndex = 1;
         const image = document.createElement("img");
         image.id = "player-image";
         image.src = imageSrc;
