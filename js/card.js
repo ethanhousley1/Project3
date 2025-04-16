@@ -305,7 +305,7 @@ function createPlayerCard(specificPlayerArray) {
         back.appendChild(agePlayer);
 
         const experiencePlayer = document.createElement('p');
-        experiencePlayer.textContent = `Experience: ${statsObj.Experience} years`
+        experiencePlayer.textContent = `Experience: ${statsObj.Experience}`
         experiencePlayer.id = 'back-inner';
         back.appendChild(experiencePlayer);
 
