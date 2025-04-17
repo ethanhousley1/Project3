@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Text:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <header>
     <div class="header-content">
@@ -37,8 +40,10 @@
       <div id="cardgrid-header">
         <input type="text" id="search-bar" class="search-bar" placeholder="Search for a player...">
         <input type="text" id="search-bar-2" class='search-bar' placeholder="Search for a player you want to compare...">
-        <button id="search-button">Search for your favorite player</button>
-        <button onclick="switchGridView()">Switch Grid View</button>
+        <button id="search-button" class="cardgrid-button">Search for your favorite player</button>
+        <button onclick="switchGridView()" class="cardgrid-button" title="Switch Grid View">
+          <i class="fa-regular fa-rectangle-list"></i>
+        </button>        
         <!-- <div>League Selector</div> -->
       </div>
       <div id="card-grid"></div>

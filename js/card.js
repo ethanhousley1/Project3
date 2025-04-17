@@ -19,14 +19,15 @@ body.appendChild(playerStats);
 let cardWrapperCounter = 0;
 let specificPlayerArray = [];
 
+let listView = '';
+
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
-        allData = data
-        console.log(allData);
+        allData = data;
 
         // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
-        if (window.location.pathname.includes("index.html")) {
+        if (document.getElementById('example-card')) {
             getRandomPlayer();
         }
 
@@ -41,36 +42,74 @@ fetch('https://sports.is120.ckearl.com')
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
+                // if (listView === 'list') {
+                //     switchGridView();
+                // }
+
                 // Clearing previous players searched by the user to allow for a new card to be searched
-                const container = document.querySelector('#card-grid');
-                container.innerHTML = '';
-                specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                if (document.querySelector('#card-grid')) {
+                    let container = document.querySelector("#card-grid");
+                    container.innerHTML = '';
 
-                const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
+                    specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
 
-                // Checking for the input from the first search bar
-                const input1 = document.getElementById('search-bar').value.trim();
-                // Checking for the input from the second search bar
-                const input2 = document.getElementById('search-bar-2').value.trim();
+                    const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
 
-                // If the input in the first search bar is not empty, call the getSpecificPlayer function
-                if (input1 !== "") {
-                    getSpecificPlayer(allData, input1, seenNames);
+                    // Checking for the input from the first search bar
+                    const input1 = document.getElementById('search-bar').value.trim();
+                    // Checking for the input from the second search bar
+                    const input2 = document.getElementById('search-bar-2').value.trim();
+
+                    // If the input in the first search bar is not empty, call the getSpecificPlayer function
+                    if (input1 !== "") {
+                        getSpecificPlayer(allData, input1, seenNames);
+                    }
+                    
+                    // If the input in the second search bar is not empty, call the getSpecificPlayer function
+                    if (input2 !== "") {
+                        getSpecificPlayer(allData, input2, seenNames);
+                    }
+
+                    // If both search bars are empty, and the search button is clicked, show all players
+                    if (input1 === '' && input2 === '') {
+                        // If both search bars are empty, show all players
+                        populateAllCards(allData, "#card-grid");
+                    } else {
+                        cardWrapperCounter = 0;
+                        createPlayerCard(specificPlayerArray);
+                    }
+                } else if (document.querySelector('#card-list')) {
+                    let containerList = document.querySelector("#card-list");
+                    containerList.innerHTML = '';
+
+                    const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
+
+                    // Checking for the input from the first search bar
+                    const input1 = document.getElementById('search-bar').value.trim();
+                    // Checking for the input from the second search bar
+                    const input2 = document.getElementById('search-bar-2').value.trim();
+
+                    // If the input in the first search bar is not empty, call the getSpecificPlayer function
+                    if (input1 !== "") {
+                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                        specificPlayerArray.push(getSpecificPlayer(allData, input1, seenNames));
+                        createPlayerList();
+                    }
+                    
+                    // If the input in the second search bar is not empty, call the getSpecificPlayer function
+                    if (input2 !== "") {
+                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                        specificPlayerArray.push(getSpecificPlayer(allData, input2, seenNames));
+                        createPlayerList();
+                    }
+
+                    // If both search bars are empty, and the search button is clicked, show all players
+                    if (input1 === '' && input2 === '') {
+                        // If both search bars are empty, show all players
+                        createPlayerList()
+                    }
                 }
                 
-                // If the input in the second search bar is not empty, call the getSpecificPlayer function
-                if (input2 !== "") {
-                    getSpecificPlayer(allData, input2, seenNames);
-                }
-
-                // If both search bars are empty, and the search button is clicked, show all players
-                if (input1 === '' && input2 === '') {
-                    // If both search bars are empty, show all players
-                    populateAllCards(allData, "#card-grid");
-                } else {
-                    cardWrapperCounter = 0;
-                    createPlayerCard(specificPlayerArray);
-                }
             });
         }
     })
@@ -78,7 +117,7 @@ fetch('https://sports.is120.ckearl.com')
     .catch(error => {
         console.error('Error:', error)
     });
-    
+
     //beginning of randomizer   
     function getRandomPlayer () {
         // randomizes the league
@@ -97,14 +136,6 @@ fetch('https://sports.is120.ckearl.com')
         //redefines random league
         randomLeague = allData[randomLeague]
 
-
-        // this is what the path looks like for a team name
-        // console.log(randomLeague.teams[0].name);
-        // this is the path for a player on
-        // will cause an error if the random league is nba because there are no players in that league
-        // console.log(allData[randomLeague].teams[1].roster[0].fullName);
-
-
         // grabs a random team
         leagueLength = randomLeague.teams.length
         randomTeam = (randomInt(1, leagueLength) - 1)
@@ -117,15 +148,15 @@ fetch('https://sports.is120.ckearl.com')
         if (randomTeam.roster[0] !== null ) {
             let randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
             randomPlayer = randomTeam.roster[randomPlayer];
-            // console.log(randomPlayer);
             
             // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
             // this checks if there is already a card in the container and clears it if there is
             const container = document.querySelector("#example-card");
             container.innerHTML = "";
+
             let randomPlayerObject = {}; // the object HAS TO be in an array by itself
-            let randomPlayerArray = [];
+            specificPlayerArray = [];
             
             // this is what the player object looks like
                         // {
@@ -167,8 +198,8 @@ fetch('https://sports.is120.ckearl.com')
             //     "#example-card"
             // Create and insert new card on hero page
 
-            randomPlayerArray.push(randomPlayerObject);
-            createPlayerCard(randomPlayerArray);
+            specificPlayerArray.push(randomPlayerObject);
+            createPlayerCard();
         }
     }
 
@@ -180,9 +211,7 @@ fetch('https://sports.is120.ckearl.com')
 
 
 function getSpecificPlayer(allData, searchParam, seenNames) {
-    selectedLeagues = ['mlb','nfl','nhl', 'nba'] 
-    // console.log(allData);
-    // console.log(allData[league].teams[team].roster[player].fullName
+    selectedLeagues = ['mlb','nfl','nhl', 'nba'] // this is the list of leagues we want to search
     for (let league in allData) {
         if (selectedLeagues.includes(league)) {
             for (let team in allData[league].teams) {
@@ -224,11 +253,10 @@ function getSpecificPlayer(allData, searchParam, seenNames) {
 //name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId
 
 function createPlayerCard() {
-    console.log(specificPlayerArray.length);
     for (let i = 0; i < specificPlayerArray.length && i < 20; i++) {
         let specificPlayer = specificPlayerArray[i];
         let name = specificPlayer.fullName;
-        let team = specificPlayer.team;
+        let team = specificPlayer.teamName;
         let position = specificPlayer.position;
         let imageSrc = specificPlayer.headshot;
         let height = specificPlayer.height;
@@ -239,8 +267,6 @@ function createPlayerCard() {
         let containerId = specificPlayer.div;
         let color1 = specificPlayer.color1.color;
         let color2 = specificPlayer.color2.color;
-        console.log(color2);
-
         
         const parentContainer = document.querySelector(containerId);
         
@@ -254,9 +280,9 @@ function createPlayerCard() {
         const front = document.createElement("div");
         front.className = "card-face front";
         front.style.background = '';
+
         const nameContainer = document.createElement("div");
         nameContainer.id = "player-name-container";
-        nameContainer.style.backgroundColor = '#ffffff;';
         nameContainer.style.zIndex = 2;
     
         const playerName = document.createElement("div");
@@ -277,6 +303,7 @@ function createPlayerCard() {
         const image = document.createElement("img");
         image.id = "player-image";
         image.src = imageSrc;
+        image.style.zIndex = 1000;
     
         imageContainer.appendChild(image);
     
@@ -344,29 +371,44 @@ function createPlayerCard() {
         
     }
 }
+
+// Fisher–Yates shuffle in‐place
+// ChatGPT provided this function to help us shuffle the array of cards before they have been rendered by populateAllCards()
+function shuffleArray(arr) {
+    let m = arr.length, t, i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      // swap arr[m] and arr[i]
+      t = arr[m];
+      arr[m] = arr[i];
+      arr[i] = t;
+    }
+    return arr;
+}
+
     // Making a function that will print the card collection
     // this will be used for the card collection page
     // it will use createPlayerCard
 function populateAllCards(allData, containerId) {
-        // Set the parent container as container variable
+    // Set the parent container as container variable
     const container = document.querySelector(containerId);
     container.innerHTML = ""; // Clear previous cards if any
     
-        // This can include nba later if that gets updated
+    // This can include nba later if that gets updated
     const selectedLeagues = ["mlb", "nfl", "nhl", "nba"];
     
-        // Looping through each selected league, and then through each team and player
+    // Looping through each selected league, and then through each team and player
     selectedLeagues.forEach((league) => {
-          const leagueData = allData[league];
-          // Checking if leagueData exists, then continuing if it does, or returning if it doesn't
+        const leagueData = allData[league];
+        // Checking if leagueData exists, then continuing if it does, or returning if it doesn't
         if (!leagueData) return;
     
-          // Looping through each team in the league
+        // Looping through each team in the league
         leagueData.teams.forEach((team) => {
-                // Looping through each player in each team
+            // Looping through each player in each team
             team.roster.forEach((player) => {
-              // Only creating card if player data is complete
-              if (player && player.fullName && player.headshot) {
+                // Only creating card if player data is complete
+                if (player && player.fullName && player.headshot) {
                     // Calling the createPlayerCard function to create a card for each player in each team
                     //"fullName": specificPlayer.fullName,
                     // "teamName": allData[league].teams[team].name,
@@ -393,11 +435,12 @@ function populateAllCards(allData, containerId) {
                         "color2": team.colors[1],
                     };
                     specificPlayerArray.push(createPlayerObject);
-                    ;
-              }
-                });
-          });
+                }
+            });
         });
+    });
+    shuffleArray(specificPlayerArray); // Shuffle the array before displaying
+
     createPlayerCard(specificPlayerArray);
 }
 
@@ -405,7 +448,6 @@ function loadMoreBtn() {
     for (i = 0; i < 20; i++) {
         specificPlayerArray.shift()
     }
-    console.log(specificPlayerArray.length);
     if (document.getElementById('card-grid')) {
         createPlayerCard()
     } else if (document.getElementById('card-list')) {
@@ -419,14 +461,14 @@ function switchGridView() {
         div.innerHTML = '';
         div.id = 'card-list';
         createPlayerList()
+        listView = 'list';
     } else if (document.getElementById('card-list')) {
         div = document.getElementById('card-list');
         div.innerHTML = '';
         div.id = 'card-grid';
         createPlayerCard()
-
+        listView = '';
     }
-
 }
 
 function createPlayerList () {
@@ -441,15 +483,16 @@ function createPlayerList () {
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
         let position = specificPlayer.position;
-        let imageSrc = specificPlayer.headshot;
+        // let imageSrc = specificPlayer.headshot;
         let height = specificPlayer.height;
         let weight = specificPlayer.weight;
         let age = specificPlayer.age;
         let experience = specificPlayer.experience;
-        let logoSrc = specificPlayer.logo;
-        let color1 = specificPlayer.color1.color;
-        let color2 = specificPlayer.color2.color;
-         // make sure that containerId is the new grid id, will contain new styles
+        // let logoSrc = specificPlayer.logo;
+        // let color1 = specificPlayer.color1.color;
+        // let color2 = specificPlayer.color2.color;
+
+        // make sure that containerId is the new grid id, will contain new styles
 
         const listContainer = document.createElement('div');
         listContainer.classList.add('list-container');

@@ -444,7 +444,7 @@ h3 {
     border: 2px solid var(--heading-color);
 }
 
-#search-button {
+.cardgrid-button {
     height: 2rem;
     width: auto;
     border-radius: 1rem;
@@ -459,6 +459,12 @@ h3 {
     text-align: center;
     flex-wrap: nowrap;
     cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+
+.cardgrid-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: ease-in-out 0.2s;
 }
 
 #card-grid {
