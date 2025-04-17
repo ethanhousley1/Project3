@@ -22,11 +22,11 @@ let specificPlayerArray = [];
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
-        allData = data
+        allData = data;
         console.log(allData);
 
         // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
-        if (window.location.pathname.includes("index.html")) {
+        if (document.getElementById('example-card')) {
             getRandomPlayer();
         }
 
@@ -79,8 +79,11 @@ fetch('https://sports.is120.ckearl.com')
         console.error('Error:', error)
     });
     
+    console.log('Calling getRandomPlayer()...');
+
     //beginning of randomizer   
     function getRandomPlayer () {
+        console.log('inside getRandomPlayer()');
         // randomizes the league
         randomLeagueInt = randomInt(0,3);
         // clunky but this converts a random int into the league
@@ -96,6 +99,7 @@ fetch('https://sports.is120.ckearl.com')
 
         //redefines random league
         randomLeague = allData[randomLeague]
+        console.log(randomLeague);
 
 
         // this is what the path looks like for a team name
@@ -111,13 +115,14 @@ fetch('https://sports.is120.ckearl.com')
 
         //redefines randomTeam
         randomTeam = randomLeague.teams[randomTeam];
+        console.log(randomTeam);
 
         // grabs random player, ignores nba
         // we will have to change the logic if he doesn't add nba players to rosters
         if (randomTeam.roster[0] !== null ) {
             let randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
             randomPlayer = randomTeam.roster[randomPlayer];
-            // console.log(randomPlayer);
+            console.log(randomPlayer);
             
             // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
@@ -168,6 +173,7 @@ fetch('https://sports.is120.ckearl.com')
             // Create and insert new card on hero page
 
             randomPlayerArray.push(randomPlayerObject);
+            console.log(randomPlayerArray);
             createPlayerCard(randomPlayerArray);
         }
     }
@@ -228,7 +234,7 @@ function createPlayerCard() {
     for (let i = 0; i < specificPlayerArray.length && i < 20; i++) {
         let specificPlayer = specificPlayerArray[i];
         let name = specificPlayer.fullName;
-        let team = specificPlayer.team;
+        let team = specificPlayer.teamName;
         let position = specificPlayer.position;
         let imageSrc = specificPlayer.headshot;
         let height = specificPlayer.height;
