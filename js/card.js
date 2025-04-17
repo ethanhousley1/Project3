@@ -23,7 +23,6 @@ fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
         allData = data;
-        console.log(allData);
 
         // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
         if (document.getElementById('example-card')) {
@@ -78,12 +77,9 @@ fetch('https://sports.is120.ckearl.com')
     .catch(error => {
         console.error('Error:', error)
     });
-    
-    console.log('Calling getRandomPlayer()...');
 
     //beginning of randomizer   
     function getRandomPlayer () {
-        console.log('inside getRandomPlayer()');
         // randomizes the league
         randomLeagueInt = randomInt(0,3);
         // clunky but this converts a random int into the league
@@ -99,15 +95,6 @@ fetch('https://sports.is120.ckearl.com')
 
         //redefines random league
         randomLeague = allData[randomLeague]
-        console.log(randomLeague);
-
-
-        // this is what the path looks like for a team name
-        // console.log(randomLeague.teams[0].name);
-        // this is the path for a player on
-        // will cause an error if the random league is nba because there are no players in that league
-        // console.log(allData[randomLeague].teams[1].roster[0].fullName);
-
 
         // grabs a random team
         leagueLength = randomLeague.teams.length
@@ -115,22 +102,21 @@ fetch('https://sports.is120.ckearl.com')
 
         //redefines randomTeam
         randomTeam = randomLeague.teams[randomTeam];
-        console.log(randomTeam);
 
         // grabs random player, ignores nba
         // we will have to change the logic if he doesn't add nba players to rosters
         if (randomTeam.roster[0] !== null ) {
             let randomPlayer = (randomInt(1, randomTeam.roster.length) -1 )
             randomPlayer = randomTeam.roster[randomPlayer];
-            console.log(randomPlayer);
             
             // playerStats.innerHTML = randomPlayer.fullName + ' age: ' + randomPlayer.age + ' height(inches): ' + randomPlayer.height + ' weight(lbs): ' + randomPlayer.weight;  
 
             // this checks if there is already a card in the container and clears it if there is
             const container = document.querySelector("#example-card");
             container.innerHTML = "";
+
             let randomPlayerObject = {}; // the object HAS TO be in an array by itself
-            let randomPlayerArray = [];
+            specificPlayerArray = [];
             
             // this is what the player object looks like
                         // {
@@ -172,9 +158,8 @@ fetch('https://sports.is120.ckearl.com')
             //     "#example-card"
             // Create and insert new card on hero page
 
-            randomPlayerArray.push(randomPlayerObject);
-            console.log(randomPlayerArray);
-            createPlayerCard(randomPlayerArray);
+            specificPlayerArray.push(randomPlayerObject);
+            createPlayerCard();
         }
     }
 
@@ -186,9 +171,7 @@ fetch('https://sports.is120.ckearl.com')
 
 
 function getSpecificPlayer(allData, searchParam, seenNames) {
-    selectedLeagues = ['mlb','nfl','nhl', 'nba'] 
-    // console.log(allData);
-    // console.log(allData[league].teams[team].roster[player].fullName
+    selectedLeagues = ['mlb','nfl','nhl', 'nba'] // this is the list of leagues we want to search
     for (let league in allData) {
         if (selectedLeagues.includes(league)) {
             for (let team in allData[league].teams) {
@@ -230,7 +213,6 @@ function getSpecificPlayer(allData, searchParam, seenNames) {
 //name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId
 
 function createPlayerCard() {
-    console.log(specificPlayerArray.length);
     for (let i = 0; i < specificPlayerArray.length && i < 20; i++) {
         let specificPlayer = specificPlayerArray[i];
         let name = specificPlayer.fullName;
@@ -245,8 +227,6 @@ function createPlayerCard() {
         let containerId = specificPlayer.div;
         let color1 = specificPlayer.color1.color;
         let color2 = specificPlayer.color2.color;
-        console.log(color2);
-
         
         const parentContainer = document.querySelector(containerId);
         
@@ -411,7 +391,6 @@ function loadMoreBtn() {
     for (i = 0; i < 20; i++) {
         specificPlayerArray.shift()
     }
-    console.log(specificPlayerArray.length);
     if (document.getElementById('card-grid')) {
         createPlayerCard()
     } else if (document.getElementById('card-list')) {
