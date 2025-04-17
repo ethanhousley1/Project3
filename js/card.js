@@ -33,9 +33,7 @@ fetch('https://sports.is120.ckearl.com')
         // Calling this code only if we are on the cardgrid.html page
         if (window.location.pathname.includes("cardgrid.html")) {
             // search bar
-            const searchButton = document.createElement('random-button')
-            searchButton.id = 'search-button';
-            searchButton.innerHTML = 'Search for your favorite player';
+            searchButton = document.getElementById('search-button')
             document.getElementById('cardgrid-header').appendChild(searchButton);
 
             // Calling card collection function to populate all cards on the cardgrid page
@@ -208,7 +206,7 @@ function getSpecificPlayer(allData, searchParam) {
 
 //name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId
 
-function createPlayerCard(specificPlayerArray) {
+function createPlayerCard() {
     console.log(specificPlayerArray.length);
     for (let i = 0; i < specificPlayerArray.length && i < 20; i++) {
         let specificPlayer = specificPlayerArray[i];
@@ -391,5 +389,84 @@ function loadMoreBtn() {
         specificPlayerArray.shift()
     }
     console.log(specificPlayerArray.length);
-    createPlayerCard(specificPlayerArray);
+    if (document.getElementById('card-grid')) {
+        createPlayerCard()
+    } else if (document.getElementById('card-list')) {
+        createPlayerList()
+    }
+}
+
+function switchGridView() {
+    if (document.getElementById('card-grid')) {
+        div = document.getElementById('card-grid');
+        div.innerHTML = '';
+        div.id = 'card-list';
+        createPlayerList()
+    } else if (document.getElementById('card-list')) {
+        div = document.getElementById('card-list');
+        div.innerHTML = '';
+        div.id = 'card-grid';
+        createPlayerCard()
+
+    }
+
+}
+
+function createPlayerList () {
+    let parentContainer = document.getElementById('card-list');
+    let firstItem = document.createElement('div');
+    firstItem.classList.add('first-list-container');
+    firstItem.innerHTML = '<h4>Name | </h4><p>Team | </p><p>Position | </p><p>Height (in) | </p><p>Weight (lbs) | </p><p>Age (years) | </p><p>Experience</p>';
+    parentContainer.appendChild(firstItem);
+    
+    for (let i = 0; i < specificPlayerArray.length && i < 20; i++) {
+        let specificPlayer = specificPlayerArray[i];
+        let name = specificPlayer.fullName;
+        let team = specificPlayer.teamName;
+        let position = specificPlayer.position;
+        let imageSrc = specificPlayer.headshot;
+        let height = specificPlayer.height;
+        let weight = specificPlayer.weight;
+        let age = specificPlayer.age;
+        let experience = specificPlayer.experience;
+        let logoSrc = specificPlayer.logo;
+        let color1 = specificPlayer.color1.color;
+        let color2 = specificPlayer.color2.color;
+         // make sure that containerId is the new grid id, will contain new styles
+
+        const listContainer = document.createElement('div');
+        listContainer.classList.add('list-container');
+
+        const playerName = document.createElement('h4');
+        playerName.innerHTML = name;
+        listContainer.appendChild(playerName);
+
+        const teamName = document.createElement('p');
+        teamName.innerHTML = team;
+        listContainer.appendChild(teamName);
+
+        const positionName = document.createElement('p');
+        positionName.innerHTML = position;
+        listContainer.appendChild(positionName);
+
+        // skipping image for the list
+        const playerHeight = document.createElement('p');
+        playerHeight.innerHTML = height;
+        listContainer.appendChild(playerHeight);
+
+        const playerWeight = document.createElement('p');
+        playerWeight.innerHTML = weight;
+        listContainer.appendChild(playerWeight);
+
+        const playerAge = document.createElement('p');
+        playerAge.innerHTML = age;
+        listContainer.appendChild(playerAge);
+        
+        const playerExperience = document.createElement('p');
+        playerExperience.innerHTML = experience;
+        listContainer.appendChild(playerExperience);
+
+        parentContainer.appendChild(listContainer);
+        // might do colors later
+    }
 }

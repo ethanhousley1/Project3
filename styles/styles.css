@@ -472,6 +472,35 @@ h3 {
     grid-auto-rows: repeat(5, minmax(0, 1fr));
 }
 
+#card-list {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    width: auto;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    padding: 3rem;
+    border: 2px solid var(--heading-color);;
+    gap: 4px;
+}
+
+.list-container {
+    border-radius: 0.25rem;
+    background-color: var(--accent-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 2rem;
+    width: 100%;
+    font-size: 0.85rem;
+}
+.first-list-container {
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 /* Media Queries for Responsivity */
 @media (max-width: 530px) {
     .info-section {
