@@ -3,6 +3,8 @@
 let allData; // api data stored globally, not really used yet
 // it must import the API
 
+// DARK MODE TOGGLE
+
 
 function randomInt (min, max) {return Math.floor(Math.random() * (max-min + 1)) + min; }; // creating a random int function for randomizer
 playerStats = document.createElement('p');
@@ -27,13 +29,35 @@ fetch('https://sports.is120.ckearl.com')
 
         // Calling the randomplayer function to get a random card populated on the hero page if it is the index.html page
         if (document.getElementById('example-card')) {
+            
+            // DARK MODE FOR INDEX
+            const toggleButton = document.getElementById('darkModeToggle');
+
+            toggleButton.addEventListener('click', function() {
+                document.querySelector('.hero-section').classList.toggle('dark-mode');
+                document.querySelector('main').classList.toggle('dark-mode');
+                console.log('button pressed');
+            });
+
             getRandomPlayer();
             specificPlayerArray = []
         }
 
         // Calling this code only if we are on the cardgrid.html page
         if (window.location.pathname.includes("cardgrid.html")) {
-            // search bar
+
+            const toggleButton = document.getElementById('darkModeToggle');
+
+            toggleButton.addEventListener('click', function() {
+                document.querySelector('.background-color-wrapper').classList.toggle('dark-mode');
+                document.querySelector('.list-container').classList.toggle('dark-mode');
+                document.querySelector('#search-button').classList.toggle('dark-mode');
+                console.log('button pressed');
+            });
+
+            // * Search Bar *
+
+            // * We have 2 search bars so you can compare players on either view *
             searchButton = document.getElementById('search-button')
             document.getElementById('cardgrid-header').appendChild(searchButton);
 
@@ -42,9 +66,7 @@ fetch('https://sports.is120.ckearl.com')
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
-                // if (listView === 'list') {
-                //     switchGridView();
-                // }
+
                 specificPlayerArray = [];
                 loadedArray = [];
 
@@ -207,7 +229,6 @@ fetch('https://sports.is120.ckearl.com')
 // this function will be core, it will find a specific player given the data and a parameter, like the first few letters in a search bar
 // it will have to update every time there is an input in the search bar
 // it will have to loop thru every league and pull out every player that matches the searchParam
-//im thinking about using regex for this
 
 function createArray () {
     console.log('total items in array');
@@ -456,6 +477,11 @@ function populateAllCards(allData, containerId) {
     createPlayerCard(loadedArray);
 }
 
+
+// * Part of the Pagination on our website, we use 2 arrays
+// * One array stores all the data, the other stores the data that will load
+// the createArray simply moves some of the data to the array that will load it
+// that way, its easy to keep track when you switch views *
 function loadMoreBtn() {
     createArray();
 
@@ -468,6 +494,7 @@ function loadMoreBtn() {
     }
 }
 
+// * Switched between mutliple views of the players *
 function switchGridView() {
     if (document.getElementById('card-grid')) {
         div = document.getElementById('card-grid');
