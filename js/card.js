@@ -289,12 +289,12 @@ function createPlayerCard() {
         playerName.id = "player-name";
         playerName.textContent = name;
     
-        const playerTeam = document.createElement("div");
-        playerTeam.id = "player-team";
-        playerTeam.textContent = team;
+        // const playerTeam = document.createElement("div");
+        // playerTeam.id = "player-team";
+        // playerTeam.textContent = team;
     
         nameContainer.appendChild(playerName);
-        nameContainer.appendChild(playerTeam);
+        // nameContainer.appendChild(playerTeam);
     
         const imageContainer = document.createElement("div");
         imageContainer.id = "player-image-container";
