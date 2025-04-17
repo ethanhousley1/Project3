@@ -32,7 +32,7 @@ fetch('https://sports.is120.ckearl.com')
 
         // Calling this code only if we are on the cardgrid.html page
         if (window.location.pathname.includes("cardgrid.html")) {
-            // search bar
+            // search button
             const searchButton = document.createElement('random-button')
             searchButton.id = 'search-button';
             searchButton.innerHTML = 'Search for your favorite player';
@@ -45,19 +45,34 @@ fetch('https://sports.is120.ckearl.com')
             searchButton.addEventListener('click', function() {
                 // Clearing previous players searched by the user to allow for a new card to be searched
                 const container = document.querySelector('#card-grid');
-                specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
                 container.innerHTML = '';
+                specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
 
-                // Checking for the input from the search bar
-                const input = document.getElementById('search-bar').value;
-                const searchParam = input;
-                // Telling me what the input is
-                console.log(searchParam);
+                const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
 
-                // Calling the function to create the card for that player
+                // Checking for the input from the first search bar
+                const input1 = document.getElementById('search-bar').value.trim();
+                // Checking for the input from the second search bar
+                const input2 = document.getElementById('search-bar-2').value.trim();
+
+                // If the input in the first search bar is not empty, call the getSpecificPlayer function
+                if (input1 !== "") {
+                    getSpecificPlayer(allData, input1, seenNames);
+                }
                 
-                getSpecificPlayer(allData, searchParam);
-                cardWrapperCounter = 0;
+                // If the input in the second search bar is not empty, call the getSpecificPlayer function
+                if (input2 !== "") {
+                    getSpecificPlayer(allData, input2, seenNames);
+                }
+
+                // If both search bars are empty, and the search button is clicked, show all players
+                if (input1 === '' && input2 === '') {
+                    // If both search bars are empty, show all players
+                    populateAllCards(allData, "#card-grid");
+                } else {
+                    cardWrapperCounter = 0;
+                    createPlayerCard(specificPlayerArray);
+                }
             });
         }
     })
@@ -166,7 +181,7 @@ fetch('https://sports.is120.ckearl.com')
 
 
 
-function getSpecificPlayer(allData, searchParam) {
+function getSpecificPlayer(allData, searchParam, seenNames) {
     selectedLeagues = ['mlb','nfl','nhl', 'nba'] 
     // console.log(allData);
     // console.log(allData[league].teams[team].roster[player].fullName
@@ -175,32 +190,34 @@ function getSpecificPlayer(allData, searchParam) {
             for (let team in allData[league].teams) {
                 for (let player in allData[league].teams[team].roster) {
                     let specificPlayer = allData[league].teams[team].roster[player];
-                    if (specificPlayer.fullName.toLowerCase().includes(searchParam.toLowerCase())) {
-                        // console.log(specificPlayer.fullName);
-                        // displayPlayer(specificPlayer);
-                        
-                        createPlayerObject = {
-                            "fullName": specificPlayer.fullName,
-                            "teamName": allData[league].teams[team].name,
-                            "position": specificPlayer.position,
-                            "headshot": specificPlayer.headshot,
-                            "height": specificPlayer.height,
-                            "weight": specificPlayer.weight,
-                            "age": specificPlayer.age,
-                            "experience" : specificPlayer.experience,
-                            "logo" : allData[league].teams[team].logo,
-                            "div" : "#card-grid",
-                            "color1" : allData[league].teams[team].colors[0],
-                            "color2": allData[league].teams[team].colors[1]
+                    if (specificPlayer.fullName && specificPlayer.fullName.toLowerCase().includes(searchParam.toLowerCase())) {
+                        if (!seenNames.has(specificPlayer.fullName)) {
+                            seenNames.add(specificPlayer.fullName); // Add the name to the set to avoid duplicates, if it isn't already in there
+                            createPlayerObject = {
+                                "fullName": specificPlayer.fullName,
+                                "teamName": allData[league].teams[team].name,
+                                "position": specificPlayer.position,
+                                "headshot": specificPlayer.headshot,
+                                "height": specificPlayer.height,
+                                "weight": specificPlayer.weight,
+                                "age": specificPlayer.age,
+                                "experience" : specificPlayer.experience,
+                                "logo" : allData[league].teams[team].logo,
+                                "div" : "#card-grid",
+                                "color1" : allData[league].teams[team].colors[0],
+                                "color2": allData[league].teams[team].colors[1]
+                            }
+                            specificPlayerArray.push(createPlayerObject);
+                        //     return seenNames;
+                        // } else {
+                        //     return seenNames;
                         }
-                        specificPlayerArray.push(createPlayerObject);
-    
                     }
                 }
             }
         }
     }
-    createPlayerCard(specificPlayerArray);
+    // createPlayerCard(specificPlayerArray);
 };
 
 
