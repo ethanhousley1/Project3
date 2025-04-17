@@ -16,7 +16,6 @@ let playerImage = document.getElementById('player-image');
 body = document.querySelector('body');
 body.appendChild(playerStats);
 
-let cardWrapperCounter = 0;
 let specificPlayerArray = [];
 let loadedArray = [];
 let listView = '';
@@ -76,7 +75,6 @@ fetch('https://sports.is120.ckearl.com')
                         // If both search bars are empty, show all players
                         populateAllCards(allData, "#card-grid");
                     } else {
-                        cardWrapperCounter = 0;
                         createArray();
                         createPlayerCard(loadedArray);
                     }
@@ -93,23 +91,24 @@ fetch('https://sports.is120.ckearl.com')
 
                     // If the input in the first search bar is not empty, call the getSpecificPlayer function
                     if (input1 !== "") {
-                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
-                        specificPlayerArray.push(getSpecificPlayer(allData, input1, seenNames));
-                        createPlayerList(specificPlayerArray);
+                        getSpecificPlayer(allData, input1, seenNames);
                     }
                     
                     // If the input in the second search bar is not empty, call the getSpecificPlayer function
                     if (input2 !== "") {
-                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
-                        specificPlayerArray.push(getSpecificPlayer(allData, input2, seenNames));
-                        createPlayerList(specificPlayerArray);
+                        getSpecificPlayer(allData, input2, seenNames);
                     }
 
                     // If both search bars are empty, and the search button is clicked, show all players
                     if (input1 === '' && input2 === '') {
                         // If both search bars are empty, show all players
-                        createPlayerList(specificPlayerArray)
+                        console.log('empty');
+                    } else {
+                        createArray();
+                        createPlayerList(loadedArray);
                     }
+
+
                 }
                 
             });
@@ -267,6 +266,7 @@ function getSpecificPlayer(allData, searchParam, seenNames) {
 function createPlayerCard(array) {
     for (let player in array) {
         let specificPlayer = array[player];
+        console.log(specificPlayer);
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
         let position = specificPlayer.position;
