@@ -240,9 +240,9 @@ function createPlayerCard() {
         const front = document.createElement("div");
         front.className = "card-face front";
         front.style.background = '';
+
         const nameContainer = document.createElement("div");
         nameContainer.id = "player-name-container";
-        nameContainer.style.backgroundColor = '#ffffff;';
         nameContainer.style.zIndex = 2;
     
         const playerName = document.createElement("div");
@@ -263,6 +263,7 @@ function createPlayerCard() {
         const image = document.createElement("img");
         image.id = "player-image";
         image.src = imageSrc;
+        image.style.zIndex = 1000;
     
         imageContainer.appendChild(image);
     
@@ -330,29 +331,44 @@ function createPlayerCard() {
         
     }
 }
+
+// Fisher–Yates shuffle in‐place
+// ChatGPT provided this function to help us shuffle the array of cards before they have been rendered by populateAllCards()
+function shuffleArray(arr) {
+    let m = arr.length, t, i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      // swap arr[m] and arr[i]
+      t = arr[m];
+      arr[m] = arr[i];
+      arr[i] = t;
+    }
+    return arr;
+}
+
     // Making a function that will print the card collection
     // this will be used for the card collection page
     // it will use createPlayerCard
 function populateAllCards(allData, containerId) {
-        // Set the parent container as container variable
+    // Set the parent container as container variable
     const container = document.querySelector(containerId);
     container.innerHTML = ""; // Clear previous cards if any
     
-        // This can include nba later if that gets updated
+    // This can include nba later if that gets updated
     const selectedLeagues = ["mlb", "nfl", "nhl", "nba"];
     
-        // Looping through each selected league, and then through each team and player
+    // Looping through each selected league, and then through each team and player
     selectedLeagues.forEach((league) => {
-          const leagueData = allData[league];
-          // Checking if leagueData exists, then continuing if it does, or returning if it doesn't
+        const leagueData = allData[league];
+        // Checking if leagueData exists, then continuing if it does, or returning if it doesn't
         if (!leagueData) return;
     
-          // Looping through each team in the league
+        // Looping through each team in the league
         leagueData.teams.forEach((team) => {
-                // Looping through each player in each team
+            // Looping through each player in each team
             team.roster.forEach((player) => {
-              // Only creating card if player data is complete
-              if (player && player.fullName && player.headshot) {
+                // Only creating card if player data is complete
+                if (player && player.fullName && player.headshot) {
                     // Calling the createPlayerCard function to create a card for each player in each team
                     //"fullName": specificPlayer.fullName,
                     // "teamName": allData[league].teams[team].name,
@@ -379,11 +395,12 @@ function populateAllCards(allData, containerId) {
                         "color2": team.colors[1],
                     };
                     specificPlayerArray.push(createPlayerObject);
-                    ;
-              }
-                });
-          });
+                }
+            });
         });
+    });
+    shuffleArray(specificPlayerArray); // Shuffle the array before displaying
+
     createPlayerCard(specificPlayerArray);
 }
 
