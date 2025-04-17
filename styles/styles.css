@@ -26,6 +26,18 @@ body {
     color: inherit;
 }
 
+/* center the spinner in its container */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem; /* match your card height */
+}
+  
+/* utility to hide when work is done */
+.hidden { display: none !important; }
+  
+
 header {
     position: sticky;
     top: 0;

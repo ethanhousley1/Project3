@@ -3,6 +3,15 @@
 let allData; // api data stored globally, not really used yet
 // it must import the API
 
+function show(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("hidden");
+}
+  function hide(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("hidden");
+}
+  
 
 function randomInt (min, max) {return Math.floor(Math.random() * (max-min + 1)) + min; }; // creating a random int function for randomizer
 playerStats = document.createElement('p');
@@ -19,6 +28,9 @@ body.appendChild(playerStats);
 let specificPlayerArray = [];
 let loadedArray = [];
 let listView = '';
+
+if (document.getElementById('example-loader')) {show('example-loader');}
+if (document.getElementById('card-grid-loader')) {show('card-grid-loader');}
 
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
@@ -114,9 +126,10 @@ fetch('https://sports.is120.ckearl.com')
             });
         }
     })
-
-    .catch(error => {
-        console.error('Error:', error)
+    .catch(console.error)
+    .finally(() => {
+        if (document.getElementById("example-loader")) hide("example-loader");
+        if (document.getElementById("card-grid-loader")) hide("card-grid-loader");
     });
 
     //beginning of randomizer   
