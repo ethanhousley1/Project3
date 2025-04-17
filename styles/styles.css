@@ -594,3 +594,27 @@ h3 {
         grid-template-columns: repeat(2, minmax(300px, 1fr));
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .hero-section {
+        background-color: var(--heading-color);
+        color: white;
+
+    }
+    main {
+        background-color: var(--heading-color);
+    }
+    .background-color-wrapper {
+        background-color: var(--heading-color);
+        color: white;
+    }
+    .card {
+        color: black;
+    }
+    #search-button {
+        background-color: var(--accent-color-4);
+    }
+    .list-container {
+        background-color: var(--accent-color-4);
+    }
+}
