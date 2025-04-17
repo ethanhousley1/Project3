@@ -212,7 +212,7 @@ fetch('https://sports.is120.ckearl.com')
 function createArray () {
     console.log('total items in array');
     console.log(specificPlayerArray);
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 20 && i <= specificPlayerArray.length; i++) {
         loadedArray.push(specificPlayerArray.shift())
 
     }
@@ -492,6 +492,7 @@ function createPlayerList (array) {
     parentContainer.appendChild(firstItem);
     
     for (let player in array) {
+        console.log(array);
         let specificPlayer = array[player];
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
