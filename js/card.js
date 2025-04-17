@@ -19,6 +19,8 @@ body.appendChild(playerStats);
 let cardWrapperCounter = 0;
 let specificPlayerArray = [];
 
+let listView = '';
+
 fetch('https://sports.is120.ckearl.com')
     .then(response => response.json())
     .then(data => {
@@ -40,36 +42,74 @@ fetch('https://sports.is120.ckearl.com')
             
             // Function that works when the search button is clicked
             searchButton.addEventListener('click', function() {
+                // if (listView === 'list') {
+                //     switchGridView();
+                // }
+
                 // Clearing previous players searched by the user to allow for a new card to be searched
-                const container = document.querySelector('#card-grid');
-                container.innerHTML = '';
-                specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                if (document.querySelector('#card-grid')) {
+                    let container = document.querySelector("#card-grid");
+                    container.innerHTML = '';
 
-                const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
+                    specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
 
-                // Checking for the input from the first search bar
-                const input1 = document.getElementById('search-bar').value.trim();
-                // Checking for the input from the second search bar
-                const input2 = document.getElementById('search-bar-2').value.trim();
+                    const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
 
-                // If the input in the first search bar is not empty, call the getSpecificPlayer function
-                if (input1 !== "") {
-                    getSpecificPlayer(allData, input1, seenNames);
+                    // Checking for the input from the first search bar
+                    const input1 = document.getElementById('search-bar').value.trim();
+                    // Checking for the input from the second search bar
+                    const input2 = document.getElementById('search-bar-2').value.trim();
+
+                    // If the input in the first search bar is not empty, call the getSpecificPlayer function
+                    if (input1 !== "") {
+                        getSpecificPlayer(allData, input1, seenNames);
+                    }
+                    
+                    // If the input in the second search bar is not empty, call the getSpecificPlayer function
+                    if (input2 !== "") {
+                        getSpecificPlayer(allData, input2, seenNames);
+                    }
+
+                    // If both search bars are empty, and the search button is clicked, show all players
+                    if (input1 === '' && input2 === '') {
+                        // If both search bars are empty, show all players
+                        populateAllCards(allData, "#card-grid");
+                    } else {
+                        cardWrapperCounter = 0;
+                        createPlayerCard(specificPlayerArray);
+                    }
+                } else if (document.querySelector('#card-list')) {
+                    let containerList = document.querySelector("#card-list");
+                    containerList.innerHTML = '';
+
+                    const seenNames = new Set(); // Set to keep track of seen player names and prevent duplicates
+
+                    // Checking for the input from the first search bar
+                    const input1 = document.getElementById('search-bar').value.trim();
+                    // Checking for the input from the second search bar
+                    const input2 = document.getElementById('search-bar-2').value.trim();
+
+                    // If the input in the first search bar is not empty, call the getSpecificPlayer function
+                    if (input1 !== "") {
+                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                        specificPlayerArray.push(getSpecificPlayer(allData, input1, seenNames));
+                        createPlayerList();
+                    }
+                    
+                    // If the input in the second search bar is not empty, call the getSpecificPlayer function
+                    if (input2 !== "") {
+                        specificPlayerArray = []; // probably have to clear the array whenever the button is clicked again
+                        specificPlayerArray.push(getSpecificPlayer(allData, input2, seenNames));
+                        createPlayerList();
+                    }
+
+                    // If both search bars are empty, and the search button is clicked, show all players
+                    if (input1 === '' && input2 === '') {
+                        // If both search bars are empty, show all players
+                        createPlayerList()
+                    }
                 }
                 
-                // If the input in the second search bar is not empty, call the getSpecificPlayer function
-                if (input2 !== "") {
-                    getSpecificPlayer(allData, input2, seenNames);
-                }
-
-                // If both search bars are empty, and the search button is clicked, show all players
-                if (input1 === '' && input2 === '') {
-                    // If both search bars are empty, show all players
-                    populateAllCards(allData, "#card-grid");
-                } else {
-                    cardWrapperCounter = 0;
-                    createPlayerCard(specificPlayerArray);
-                }
             });
         }
     })
@@ -421,14 +461,14 @@ function switchGridView() {
         div.innerHTML = '';
         div.id = 'card-list';
         createPlayerList()
+        listView = 'list';
     } else if (document.getElementById('card-list')) {
         div = document.getElementById('card-list');
         div.innerHTML = '';
         div.id = 'card-grid';
         createPlayerCard()
-
+        listView = '';
     }
-
 }
 
 function createPlayerList () {
@@ -443,15 +483,16 @@ function createPlayerList () {
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
         let position = specificPlayer.position;
-        let imageSrc = specificPlayer.headshot;
+        // let imageSrc = specificPlayer.headshot;
         let height = specificPlayer.height;
         let weight = specificPlayer.weight;
         let age = specificPlayer.age;
         let experience = specificPlayer.experience;
-        let logoSrc = specificPlayer.logo;
-        let color1 = specificPlayer.color1.color;
-        let color2 = specificPlayer.color2.color;
-         // make sure that containerId is the new grid id, will contain new styles
+        // let logoSrc = specificPlayer.logo;
+        // let color1 = specificPlayer.color1.color;
+        // let color2 = specificPlayer.color2.color;
+
+        // make sure that containerId is the new grid id, will contain new styles
 
         const listContainer = document.createElement('div');
         listContainer.classList.add('list-container');
