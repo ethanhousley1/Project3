@@ -522,6 +522,8 @@ h3 {
     padding: 3rem;
     border: 2px solid var(--heading-color);;
     gap: 4px;
+    color: black;
+    background-color: var(--accent-color-4);
 }
 
 #search-button {

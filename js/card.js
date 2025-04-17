@@ -46,6 +46,7 @@ fetch('https://sports.is120.ckearl.com')
             toggleButton.addEventListener('click', function() {
                 document.querySelector('.hero-section').classList.toggle('dark-mode');
                 document.querySelector('main').classList.toggle('dark-mode');
+                
                 console.log('button pressed');
             });
 
@@ -60,7 +61,12 @@ fetch('https://sports.is120.ckearl.com')
 
             toggleButton.addEventListener('click', function() {
                 document.querySelector('.background-color-wrapper').classList.toggle('dark-mode');
-                document.querySelector('.list-container').classList.toggle('dark-mode');
+                listContainers = document.querySelectorAll('.list-container')
+                console.log(listContainers);
+                for (let container of listContainers) {
+                    console.log(container);
+                    container.classList.toggle('dark-mode');
+                }
                 document.querySelector('#search-button').classList.toggle('dark-mode');
                 console.log('button pressed');
             });
@@ -530,7 +536,7 @@ function createPlayerList (array) {
     parentContainer.appendChild(firstItem);
     
     for (let player in array) {
-        console.log(array);
+        
         let specificPlayer = array[player];
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
