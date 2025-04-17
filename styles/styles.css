@@ -30,7 +30,7 @@ body {
     text-decoration: none;
     color: inherit;
 }
-
+/* API LOADER */
 /* center the spinner in its container */
 .loader {
     display: flex;

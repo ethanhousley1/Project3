@@ -56,7 +56,7 @@ fetch('https://sports.is120.ckearl.com')
 
         // Calling this code only if we are on the cardgrid.html page
         if (window.location.pathname.includes("cardgrid.html")) {
-
+            // DARK MODE for cards
             const toggleButton = document.getElementById('darkModeToggle');
 
             toggleButton.addEventListener('click', function() {
