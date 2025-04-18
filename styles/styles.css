@@ -30,16 +30,16 @@ body {
     text-decoration: none;
     color: inherit;
 }
+
 /* API LOADER */
-/* center the spinner in its container */
+/* centers the spinner in its container */
 .loader {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20rem; /* match your card height */
+    height: 20rem;
 }
-  
-/* utility to hide when work is done */
+
 .hidden { display: none !important; }
   
 
@@ -460,7 +460,6 @@ h3 {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    /* height: 5rem; */
     padding: 1rem;
 }
 
