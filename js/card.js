@@ -3,6 +3,7 @@
 let allData; // api data stored globally, not really used yet
 // it must import the API
 
+// Functions to show and hide the loading animation
 function show(id) {
     const el = document.getElementById(id);
     if (el) el.classList.remove("hidden");
@@ -29,6 +30,7 @@ let specificPlayerArray = [];
 let loadedArray = [];
 let listView = '';
 
+// This shows the loading animation on the hero page and card grid page
 if (document.getElementById('example-loader')) {show('example-loader');}
 if (document.getElementById('card-grid-loader')) {show('card-grid-loader');}
 
@@ -154,6 +156,7 @@ fetch('https://sports.is120.ckearl.com')
     })
     .catch(console.error)
     .finally(() => {
+        // This hides the loading animation once the data is fetched
         if (document.getElementById("example-loader")) hide("example-loader");
         if (document.getElementById("card-grid-loader")) hide("card-grid-loader");
     });
@@ -284,22 +287,16 @@ function getSpecificPlayer(allData, searchParam, seenNames) {
                                 "color2": allData[league].teams[team].colors[1]
                             }
                             specificPlayerArray.push(createPlayerObject);
-                        //     return seenNames;
-                        // } else {
-                        //     return seenNames;
                         }
                     }
                 }
             }
         }
     }
-    // createPlayerCard(specificPlayerArray);
 };
 
 
 // Creating a function that will make a card both for the hero and for the cardgrid html page. This function will make it easier to implement and make it so we can use the same function for both pages
-
-//name, team, position, imageSrc, height, weight, age, experience, logoSrc, containerId
 
 function createPlayerCard(array) {
     for (let player in array) {
@@ -339,12 +336,7 @@ function createPlayerCard(array) {
         playerName.id = "player-name";
         playerName.textContent = name;
     
-        // const playerTeam = document.createElement("div");
-        // playerTeam.id = "player-team";
-        // playerTeam.textContent = team;
-    
         nameContainer.appendChild(playerName);
-        // nameContainer.appendChild(playerTeam);
     
         const imageContainer = document.createElement("div");
         imageContainer.id = "player-image-container";
@@ -444,7 +436,7 @@ function populateAllCards(allData, containerId) {
     const container = document.querySelector(containerId);
     container.innerHTML = ""; // Clear previous cards if any
     
-    // This can include nba later if that gets updated
+    // All the leagues we want to show
     const selectedLeagues = ["mlb", "nfl", "nhl", "nba"];
     
     // Looping through each selected league, and then through each team and player
@@ -541,17 +533,12 @@ function createPlayerList (array) {
         let name = specificPlayer.fullName;
         let team = specificPlayer.teamName;
         let position = specificPlayer.position;
-        // let imageSrc = specificPlayer.headshot;
         let height = specificPlayer.height;
         let weight = specificPlayer.weight;
         let age = specificPlayer.age;
         let experience = specificPlayer.experience;
-        // let logoSrc = specificPlayer.logo;
-        // let color1 = specificPlayer.color1.color;
-        // let color2 = specificPlayer.color2.color;
 
         // make sure that containerId is the new grid id, will contain new styles
-
         const listContainer = document.createElement('div');
         listContainer.classList.add('list-container');
 
